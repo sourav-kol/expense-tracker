@@ -8,13 +8,18 @@ export const Nav = () => {
                 Label:"Dashboard"
             },
             {
+                Key:"/expense",
+                Label:"Expense"
+            },
+            {
                 Key:"/report",
                 Label:"Report"
             },
-            {
-                Key:"/expense",
-                Label:"Expense"
-            }
         ]
     }as NavItems
 }
+
+export const DefaultPaginationValue = {
+        page: 0,
+        pageSize: 5
+} 

@@ -2,7 +2,7 @@ import React from 'react';
 import { Layout,Divider } from 'antd';
 import type { AppProps } from 'next/app'
 import NavigationBar from '@/components/Navigation/NavigationBar';
-import { Nav } from '@/constants/Nav';
+import { Nav } from '@/constants/AppConstants';
 import '../public/styles.scss';
 
 const { Footer, Content } = Layout;
