@@ -21,5 +21,5 @@ export const Nav = () => {
 
 export const DefaultPaginationValue = {
         page: 0,
-        pageSize: 5
+        pageSize: 7
 } 

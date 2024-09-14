@@ -109,7 +109,7 @@ h1 {
     font-size: 75px;
   }
 
-  p{
+  p {
     text-decoration: none;
     font-size: 27px;
     margin: 0;
@@ -118,8 +118,62 @@ h1 {
   }
 }
 
-.dashboard-flex{
+.dashboard-flex {
   position: relative;
   left: 10%;
   width: 80%;
+}
+
+.expense-section {
+  position: relative;
+  top: 0px;
+  height: 100%;
+
+  .ant-row:nth-child(2) {
+    height: 100%;
+  }
+
+  section {
+    margin-top: 12px;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.ant-btn-primary {
+  background-color: $highlighter;
+}
+
+.ant-pagination {
+
+  .ant-pagination-item-active,
+  .ant-pagination-item-active:hover {
+    border-color: $highlighter;
+
+    a,
+    a:hover {
+      color: $highlighter;
+    }
+  }
+}
+
+.ant-drawer {
+  .ant-drawer-header {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+
+input {
+  width: 100%;
+}
+
+.form-btn{
+  position: absolute;
+  bottom: 18px;
+  width: 100%;
+}
+
+.ant-form{
+  padding: 0px 14x;
 }

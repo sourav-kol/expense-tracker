@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect } from "react";
-import { Col, Row, Button, Table, Drawer, Form, Input, Select } from "antd";
+import { Col, Row, Button, Table, Drawer, Form, Input, Select, Space } from "antd";
 import AppLayout from "@/layout/commonLayout";
 import { ExpenseData } from "@/api/fake-api";
 import { Expense } from "@/types";
@@ -8,16 +8,17 @@ import type { TableProps } from "antd"
 import { DefaultPaginationValue } from "@/constants/AppConstants";
 
 export default function Expense() {
-  const [expenseList, setExpense] = useState<Expense[]>([]);
+  const [expenseList, setExpenseList] = useState<Expense[]>([]);
   const [columnList, setColumns] = useState<TableProps<Expense>["columns"]>();
   const [openDrawer, setDrawer] = useState<boolean>(false);
+  const [expense, setExpense] = useState<Expense>();
 
   const toggleDrawer = () => {
     setDrawer(!openDrawer);
   }
 
   const onFinish = (e: Expense) => {
-    setExpense((prevState) => [...prevState, {
+    setExpenseList((prevState) => [...prevState, {
       id: Math.random() * 1000,
       title: e.title,
       category: e.category ?? 1,
@@ -29,7 +30,7 @@ export default function Expense() {
   }
 
   useEffect(() => {
-    setExpense(expenseList as Expense[]);
+    setExpenseList(expenseList as Expense[]);
   }, [expenseList]);
 
   useEffect(() => {
@@ -37,10 +38,8 @@ export default function Expense() {
       key: 'title',
       dataIndex: 'title',
       title: 'title',
-      width: 40
     },
     {
-      width: 40,
       key: 'category',
       dataIndex: 'category',
       title: 'category'
@@ -55,17 +54,17 @@ export default function Expense() {
       dataIndex: 'amount',
       title: 'amount'
     }]);
-    
+
     //api call
-    setExpense(ExpenseData.expenseList as Expense[]);
+    setExpenseList(ExpenseData.expenseList as Expense[]);
 
   }, [])
 
   return (
     <AppLayout>
       <h1>Expense</h1>
-      <Col>
-        <Row>
+      <Col className="expense-section">
+        <Row justify={"end"}>
           <Button type="primary" onClick={toggleDrawer}>Add Expense</Button>
         </Row>
         <Row>
@@ -83,7 +82,7 @@ export default function Expense() {
         maskClosable={false}
         closable
         destroyOnClose
-        title={<p>Add Expense</p>}
+        title={<h3>Add Expense</h3>}
         placement="right"
         open={openDrawer}
         onClose={() => setDrawer(false)}
@@ -98,6 +97,7 @@ export default function Expense() {
           onFinish={onFinish}
           // onFinishFailed={onFinishFailed}
           autoComplete="off"
+          layout="vertical"
         >
           <Form.Item<string>
             label="Title"
@@ -110,8 +110,6 @@ export default function Expense() {
           <Form.Item<number> label="Category" name="category" initialValue={1}>
             <Select
               key={"category"}
-              style={{ width: 120 }}
-              //onChange={() => { }}
               options={[
                 { value: 1, label: 'Food', },
                 { value: 2, label: 'Shopping' },
@@ -127,12 +125,19 @@ export default function Expense() {
           >
             <Input type="number" />
           </Form.Item>
+          <div className="form-btn">
+            <Form.Item wrapperCol={{ offset: 16, span: 14 }}>
+              <Space size={"middle"}>
+                <Button type="primary" htmlType="submit">
+                  Submit
+                </Button>
 
-          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item>
+                <Button onClick={toggleDrawer}>
+                  cancel
+                </Button>
+              </Space>
+            </Form.Item>
+          </div>
         </Form>
       </Drawer>
     </AppLayout >
