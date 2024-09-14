@@ -1,0 +1,84 @@
+$base-color-dark: rgb(43, 45, 46);
+$base-color-light: white;
+$highlighter: crimson;
+
+.layout {
+  height: 98vh;
+
+  .header {
+    display: 'flex';
+    align-items: 'center';
+    justify-content: center;
+    background-color: $base-color-dark;
+    padding: 0 30px;
+    line-height: 0;
+
+    .logo {
+      line-height: 0;
+      position: relative;
+      top: 10px;
+
+      p {
+        color: $base-color-light;
+        font-size: 20px;
+      }
+    }
+  }
+
+  .content {
+    padding: 15px 15px;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; //todo: do not show sider when min-width
+  }
+}
+
+h1 {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+}
+
+.common-layout {
+  height: 100%;
+  padding: 0;
+  
+  .layout-left-content {
+    width: 74%;
+    min-width: 300px;
+    height: 100%;
+  }
+  
+  .layout-right-content{
+    width: 24%;
+    min-width: 200px;
+    height: 100%;
+  }
+}
+
+.nav {
+  width: 80%;
+  height: 8vh;
+  background-color: $base-color-dark;
+  position: relative;
+  left: 10%;
+  top: 10px;
+  border-radius: 1.5vh;
+  align-items: center;
+  justify-content: center;
+  
+  .nav-btn{
+    text-decoration: none;
+    color: $base-color-light;
+    padding: 10px 10px 10px 10px;
+    font-size: 14px;
+  }
+
+  .nav-btn:hover{
+    color: $highlighter;
+  }
+
+  .active{
+    color: $highlighter;
+  }
+}
