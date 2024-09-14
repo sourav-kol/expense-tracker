@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Col, Row, Button, Table, Drawer, Form, Input, Select } from "antd";
 import AppLayout from "@/layout/commonLayout";
 import { ExpenseData } from "@/api/fake-api";
-import { Expense, Pagination } from "@/types";
+import { Expense } from "@/types";
 import type { TableProps } from "antd"
 import { DefaultPaginationValue } from "@/constants/AppConstants";
 
@@ -11,35 +11,36 @@ export default function Expense() {
   const [expenseList, setExpense] = useState<Expense[]>([]);
   const [columnList, setColumns] = useState<TableProps<Expense>["columns"]>();
   const [openDrawer, setDrawer] = useState<boolean>(false);
-  const [pagination, setPagination] = useState<Pagination>({ page: DefaultPaginationValue.page, pageSize: DefaultPaginationValue.pageSize });
 
   const toggleDrawer = () => {
     setDrawer(!openDrawer);
   }
 
   const onFinish = (e: Expense) => {
-    console.log(e);
-    var updatedExpense = expenseList;
-    updatedExpense.push({
+    setExpense((prevState) => [...prevState, {
       id: Math.random() * 1000,
       title: e.title,
       category: e.category ?? 1,
       amount: e.amount,
       date: new Date().toDateString()
-    });
-    setExpense(updatedExpense);
+    }]);
 
     setDrawer(false);
   }
 
   useEffect(() => {
+    setExpense(expenseList as Expense[]);
+  }, [expenseList]);
 
+  useEffect(() => {
     setColumns([{
-      key: 'id',
+      key: 'title',
       dataIndex: 'title',
-      title: 'title'
+      title: 'title',
+      width: 40
     },
     {
+      width: 40,
       key: 'category',
       dataIndex: 'category',
       title: 'category'
@@ -54,11 +55,11 @@ export default function Expense() {
       dataIndex: 'amount',
       title: 'amount'
     }]);
+    
+    //api call
+    setExpense(ExpenseData.expenseList as Expense[]);
 
-    setPagination({ ...pagination, totalCount: ExpenseData.expenseList.length });
-    var tempExpense = ExpenseData.expenseList.slice(pagination.page, pagination.pageSize) as Expense[];
-    setExpense(tempExpense);
-  }, []);
+  }, [])
 
   return (
     <AppLayout>
@@ -69,7 +70,10 @@ export default function Expense() {
         </Row>
         <Row>
           <section>
-            <Table columns={columnList} dataSource={expenseList} />
+            {/* make as component */}
+            <Table columns={columnList} dataSource={expenseList} pagination={{
+              pageSize: DefaultPaginationValue.pageSize
+            }} />
           </section>
         </Row>
       </Col>
@@ -107,7 +111,7 @@ export default function Expense() {
             <Select
               key={"category"}
               style={{ width: 120 }}
-              onChange={() => { }}
+              //onChange={() => { }}
               options={[
                 { value: 1, label: 'Food', },
                 { value: 2, label: 'Shopping' },
@@ -121,7 +125,7 @@ export default function Expense() {
             name="amount"
             rules={[{ required: false }]}
           >
-            <Input />
+            <Input type="number" />
           </Form.Item>
 
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>

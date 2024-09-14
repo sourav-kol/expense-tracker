@@ -11,7 +11,7 @@ function NavigationBar(props: Props) {
     return <Flex className='nav' gap={"middle"} align="center">
             {
                 NavItem.Items.map((item) => {
-                    return <NavigationItem Item={item}></NavigationItem>
+                    return <NavigationItem key={item.Key} Item={item}></NavigationItem>
                 })
             }
         </Flex>
