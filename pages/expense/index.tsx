@@ -18,9 +18,10 @@ export default function Expense() {
   }
 
   const onFinish = (e: Expense) => {
+    console.log(e);
     var updatedExpense = expenseList;
     updatedExpense.push({
-      id: 100,
+      id: Math.random() * 1000,
       title: e.title,
       category: e.category ?? 1,
       amount: e.amount,
@@ -73,6 +74,7 @@ export default function Expense() {
         </Row>
       </Col>
 
+      {/* todo: make as component */}
       <Drawer
         maskClosable={false}
         closable
@@ -101,10 +103,9 @@ export default function Expense() {
             <Input />
           </Form.Item>
 
-          <Form.Item<number> label="Category" name="category">
+          <Form.Item<number> label="Category" name="category" initialValue={1}>
             <Select
               key={"category"}
-              defaultValue={1}
               style={{ width: 120 }}
               onChange={() => { }}
               options={[

@@ -1,6 +1,6 @@
 import { DashboardData } from "@/api/fake-api";
 import AppLayout from "@/layout/commonLayout";
-import CardSection from "@/components/CardSections/CardSection";
+import CardSection from "@/components/Dashboard/CardSection";
 import { Flex } from "antd";
 
 export default function Dashboard() {
