@@ -1,7 +1,7 @@
 $base-color-dark: rgb(43, 45, 46);
 $base-color-dark-v2: rgb(57, 62, 64);
 $base-color-light: white;
-$highlighter: crimson;
+$highlighter: coral;
 
 .layout {
   height: 98vh;
@@ -34,27 +34,33 @@ $highlighter: crimson;
   }
 }
 
+.ant-card {
+  width: 20%;
+  height: 15%;
+  background-color: $highlighter;
+
+  .ant-card-head {
+    padding: 0;
+    min-height: 16px;
+    align-content: center;
+  }
+}
+
 h1 {
   display: inline-block;
   vertical-align: middle;
   line-height: normal;
+  font-size: 40px;
 }
 
-.common-layout {
+.layout-common {
+  position: relative;
+  min-width: 300px;
+  width: 85%;
   height: 100%;
-  padding: 0;
-  
-  .layout-left-content {
-    width: 74%;
-    min-width: 300px;
-    height: 100%;
-  }
-  
-  .layout-right-content{
-    width: 24%;
-    min-width: 200px;
-    height: 100%;
-  }
+  left: 7.5%;
+  border-radius: 12px;
+  padding: 6px 6px 6px 6px;
 }
 
 .nav {
@@ -67,19 +73,53 @@ h1 {
   border-radius: 1.5vh;
   align-items: center;
   justify-content: center;
-  
-  .nav-btn{
+
+  .nav-btn {
     text-decoration: none;
     color: $base-color-light;
     padding: 10px 10px 10px 10px;
     font-size: 14px;
   }
 
-  .nav-btn:hover{
+  .nav-btn:hover {
     color: $highlighter;
   }
 
-  .active{
+  .active {
     color: $highlighter;
   }
+}
+
+.card-section {
+  width: 46%;
+  height: 22vh;
+  min-width: 120px;
+  border-radius: 12px;
+  text-align: center;
+  color: $base-color-light;
+  background-color: $base-color-dark-v2;
+
+  h2 {
+    text-decoration: none;
+    margin: 0;
+    position: relative;
+    top: 0px;
+    width: 100%;
+    padding: 4px 0px;
+    font-size: 75px;
+  }
+
+  p{
+    text-decoration: none;
+    font-size: 27px;
+    margin: 0;
+    width: 100%;
+    padding: 8px 0px;
+  }
+}
+
+.dashboard-flex{
+  position: relative;
+  left: 10%;
+  width: 80%;
 }
