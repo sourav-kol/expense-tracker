@@ -14,7 +14,7 @@ function NavigationItems(prop: Props) {
 
     const isActive: boolean = router.pathname.toLocaleLowerCase() === Item.Key;
     return <>
-        <Link href={Item.Key} className={`nav-btn ${isActive ? "active" : ""}`}>{Item.Label}</Link>
+        <Link href={Item.Key} key={Item.Key} className={`nav-btn ${isActive ? "active" : ""}`}>{Item.Label}</Link>
     </>;
 }
 

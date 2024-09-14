@@ -4,12 +4,16 @@ export const Nav = () => {
     return {
         Items: [
             {
-                Key:"/publish",
-                Label:"Publish"
+                Key:"/dashboard",
+                Label:"Dashboard"
             },
             {
-                Key:"/publish/preview",
-                Label:"Preview"
+                Key:"/report",
+                Label:"Report"
+            },
+            {
+                Key:"/expense",
+                Label:"Expense"
             }
         ]
     }as NavItems

@@ -17,9 +17,9 @@ const metadata = {
 export default function RootLayout({ Component, pageProps }: AppProps) {
     return (
         <Layout className='layout'>
-            <Header className='header'>
+            {/* <Header className='header'>
                 <div className="logo"><p>Logo</p></div>
-            </Header>
+            </Header> */}
             <NavigationBar NavItem={Nav()}></NavigationBar>
             <Content className='content'>
                 <Component {...pageProps} />
