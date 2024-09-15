@@ -3,19 +3,11 @@ const nextConfig = {
     poweredByHeader: false,
     webpack(config, { isServer }) {
         config.externals = config.externals || {};
-        // if (!isServer) {
-        //     config.externals = {
-        //         'react': 'React',
-        //         'react-dom': 'ReactDOM',
-        //         'lodash': '_',
-        //         'antd': 'antd',
-        //         'next': 'next'
-        //     }
-        // };
         config.module.rules.push({
             test: /\.node$/,
             use: ["node-loader"],
         });
+
         return config;
     },
     reactStrictMode: false,

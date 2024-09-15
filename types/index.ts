@@ -19,9 +19,11 @@ export type NavItems = {
 export type Expense = {
     id: number,
     title: string,
-    category: Category,
+    category: Category | string, //todo: fix this
     date: string, //todo: change to date type
-    amount: number
+    amount: number,
+    createdDate: string,
+    notes: string
 }
 
 export enum Category {

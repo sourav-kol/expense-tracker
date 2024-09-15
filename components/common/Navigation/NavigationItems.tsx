@@ -12,7 +12,7 @@ function NavigationItems(prop: Props) {
     const { Item } = prop;
     const router = useRouter();
 
-    const isActive: boolean = router.pathname.toLocaleLowerCase() === Item.Key;
+    const isActive: boolean = router.pathname.toLocaleLowerCase().includes(Item.Key);
     return <>
         <Link href={Item.Key} key={Item.Key} className={`nav-btn ${isActive ? "active" : ""}`}>{Item.Label}</Link>
     </>;
