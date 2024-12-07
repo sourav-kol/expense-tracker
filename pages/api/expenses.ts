@@ -3,21 +3,21 @@ import { mongoInitialize, Response } from '@/Database/mongodb';
 
 export default async function handler(
     req: NextApiRequest,
-    res: NextApiResponse<Response>
+    res: NextApiResponse<Response | string>
 ) {
     try {
         var db = await mongoInitialize();
         switch (req.method) {
             case 'POST':
-                res.status(201);
+                res.status(201).json("SUCCESS!!");
                 break;
             case 'GET':
                 var result = await db.collection("expenses").find().toArray()
-                res.status(200).json(result);
+                res.status(200).json(result as Response);
                 break;
         }
     } catch (err) {
-        console.log(err);
+        res.status(500).json(JSON.stringify(err));
         throw err;
     }
 }
