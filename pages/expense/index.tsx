@@ -8,6 +8,7 @@ import { Expense } from "@/types";
 import type { TableProps } from "antd"
 import { DefaultPaginationValue } from "@/constants/AppConstants";
 import AddExpenseDrawer from "@/components/Expense/AddDrawer";
+import axios  from 'axios';
 
 export default function Expense() {
   const router = useRouter();
@@ -56,6 +57,10 @@ export default function Expense() {
 
     //api call
     setExpenseList(ExpenseData.expenseList as Expense[]);
+
+    axios.get("/api/sheet").then((res) => {
+      console.log(res);
+    });
 
     return () => {
       setExpenseList([]);
