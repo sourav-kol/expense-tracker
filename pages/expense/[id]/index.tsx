@@ -4,9 +4,9 @@ import { useState, useEffect } from "react"
 import AppLayout from "@/layout/commonLayout";
 import { Expense } from "@/types";
 import { useRouter } from "next/router"
-import { ExpenseData } from "@/api/fake-api";
 import { Flex, Row } from "antd";
 import Image from "next/image";
+import { getExpenseById } from "@/clientService/expenseService"
 
 import { TagsOutlined, CalendarOutlined, DollarOutlined, ClockCircleOutlined, FileTextOutlined } from "@ant-design/icons";
 import svgImg from "@/public/images/arrow-down_gray.svg"
@@ -21,7 +21,13 @@ function ExpenseDetails() {
     const [expense, setExpense] = useState<Expense | undefined>();
 
     useEffect(() => {
-        setExpense(ExpenseData.expenseList.find(s => s.id.toString() == id));
+        getExpenseById(id as string)
+            .then(res => {
+                setExpense(res);
+            })
+            .catch(error => {
+                console.log(error);
+            })
     }, []);
 
     return <AppLayout>

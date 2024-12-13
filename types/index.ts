@@ -1,11 +1,11 @@
-export type Blog = {
-    Icon: number,
-    Title: string,
-    ShortDescription: string,
-    PublishedDate: string,
-    Likes: number,
-    Shares: number
-}
+// export type Blog = {
+//     Icon: number,
+//     Title: string,
+//     ShortDescription: string,
+//     PublishedDate: string,
+//     Likes: number,
+//     Shares: number
+// }
 
 export type NavItem = {
     Key: string,
@@ -17,7 +17,7 @@ export type NavItems = {
 }
 
 export type Expense = {
-    id: number,
+    _id: String,
     title: string,
     category: Category | string, //todo: fix this
     date: string, //todo: change to date type

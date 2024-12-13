@@ -1,0 +1,31 @@
+import type { NextApiRequest, NextApiResponse } from 'next'
+import { mongoInitialize } from '@/Database/mongodb';
+import { ExpenseModel } from '@/model/expense';
+
+//expense controller
+export default async function handler(
+    req: NextApiRequest,
+    res: NextApiResponse<any> //todo: fix return type
+) {
+    try {
+        await mongoInitialize();
+        var { id } = req.query;
+        if (id) {
+            switch (req.method) {
+                case 'GET':
+                    //todo:
+                    //should be in BE service
+                    var result = await ExpenseModel.findById(id);
+                    res.status(200).json(result);
+                    break;
+            }
+            res.status(200).json(req.query);
+        }else{
+            res.status(500).json("Id cannot be null");
+        }
+
+    } catch (err) {
+        res.status(500).json(JSON.stringify("error: " + err));
+        throw err;
+    }
+}

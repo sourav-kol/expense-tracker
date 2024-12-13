@@ -14,14 +14,17 @@ export default async function handler(
             case 'POST':
                 let reqBody = req.body;
 
-                let newExpense = await ExpenseModel.create({
+                let newExpense = await ExpenseModel.create({ //should be in BE service
                     ...reqBody, _id: v4()
                 });
                 newExpense.save();
                 res.status(200).json("success!!");
                 break;
             case 'GET':
-                var result = await ExpenseModel.find({}); //todo: should be in BE service
+                //todo:
+                //should be in BE service
+                //should be paginated list
+                var result = await ExpenseModel.find({});
                 res.status(200).json(result);
                 break;
         }

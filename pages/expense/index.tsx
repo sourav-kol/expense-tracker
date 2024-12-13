@@ -3,12 +3,11 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Col, Row, Button, Table } from "antd";
 import AppLayout from "@/layout/commonLayout";
-import { ExpenseData } from "@/api/fake-api";
 import { Expense } from "@/types";
 import type { TableProps } from "antd"
 import { DefaultPaginationValue } from "@/constants/AppConstants";
 import AddExpenseDrawer from "@/components/Expense/AddDrawer";
-import { getExpenses } from "@/clientService/expenseService"
+import { getExpenses, createExpenses } from "@/clientService/expenseService"
 
 export default function Expense() {
   const router = useRouter();
@@ -21,12 +20,16 @@ export default function Expense() {
   }
 
   const onFinish = (e: Expense) => {
-    setExpenseList((prevState) => [...prevState, e]);
-    setDrawer(false);
+    createExpenses(e)
+      .then(res => {
+        setDrawer(false);
+      }).catch(err => {
+        console.log(err);
+      })
   }
 
   const onRowClick = (val: Expense, idx: number | undefined) => {
-    router.push(`/expense/${val.id}`)
+    router.push(`/expense/${val._id}`)
   }
 
   useEffect(() => {
@@ -55,11 +58,11 @@ export default function Expense() {
       title: 'amount'
     }]);
 
-    //api call
-    setExpenseList(ExpenseData.expenseList as Expense[]);
+    //setExpenseList(ExpenseData.expenseList as Expense[]);
 
+    //api call
     getExpenses().then((res) => {
-      console.log(res);
+      setExpenseList(res as Expense[]);
     });
 
     return () => {
