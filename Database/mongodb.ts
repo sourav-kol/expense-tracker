@@ -1,6 +1,6 @@
 import { Db, MongoClient, WithId, Document } from 'mongodb';
 
-export const mongoInitialize = async (): Promise<Db> => { // 
+export const mongoInitialize = async (): Promise<Db> => {
     try {
         var client = new MongoClient(process.env.MONGO_URL as string);
         console.log(client);
