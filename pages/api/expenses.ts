@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { mongoInitialize } from '@/Database/mongodb';
-import { Expense } from '@/model/expense';
+import { ExpenseModel } from '@/model/expense';
+import { v4 } from 'uuid';
 
 //expense controller
 export default async function handler(
@@ -11,10 +12,16 @@ export default async function handler(
         await mongoInitialize();
         switch (req.method) {
             case 'POST':
-                res.status(200).json("SUCCESS!!");
+                let reqBody = req.body;
+
+                let newExpense = await ExpenseModel.create({
+                    ...reqBody, _id: v4()
+                });
+                newExpense.save();
+                res.status(200).json("success!!");
                 break;
             case 'GET':
-                var result = await Expense.find({}); //todo: should be in BE service
+                var result = await ExpenseModel.find({}); //todo: should be in BE service
                 res.status(200).json(result);
                 break;
         }
