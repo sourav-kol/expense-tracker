@@ -8,7 +8,7 @@ import { Expense } from "@/types";
 import type { TableProps } from "antd"
 import { DefaultPaginationValue } from "@/constants/AppConstants";
 import AddExpenseDrawer from "@/components/Expense/AddDrawer";
-import { getExpenses } from "@/service/expenseService"
+import { getExpenses } from "@/clientService/expenseService"
 
 export default function Expense() {
   const router = useRouter();

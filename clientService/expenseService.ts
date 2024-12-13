@@ -1,7 +1,6 @@
 import axios from 'axios';
-import { Response } from '@/Database/mongodb';
 
-export const getExpenses = async (): Promise<Response> => {
+export const getExpenses = async (): Promise<any> => { //todo: fix return type
     return axios.get("/api/expenses")
         .then((res) => {
             return res.data

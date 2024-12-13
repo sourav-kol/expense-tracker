@@ -1,19 +1,21 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { mongoInitialize, Response } from '@/Database/mongodb';
+import { mongoInitialize } from '@/Database/mongodb';
+import { Expense } from '@/model/expense';
 
+//expense controller
 export default async function handler(
     req: NextApiRequest,
-    res: NextApiResponse<Response | string>
+    res: NextApiResponse<any> //todo: fix return type
 ) {
     try {
-        var db = await mongoInitialize();
+        await mongoInitialize();
         switch (req.method) {
             case 'POST':
-                res.status(201).json("SUCCESS!!");
+                res.status(200).json("SUCCESS!!");
                 break;
             case 'GET':
-                var result = await db.collection("expenses").find().toArray()
-                res.status(200).json(result as Response);
+                var result = await Expense.find({}); //todo: should be in BE service
+                res.status(200).json(result);
                 break;
         }
     } catch (err) {
