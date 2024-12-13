@@ -9,7 +9,7 @@ import { DefaultPaginationValue } from "@/constants/AppConstants";
 import AddExpenseDrawer from "@/components/Expense/AddDrawer";
 import { getExpenses, createExpenses } from "@/clientService/expenseService"
 
-export default function Expense() {
+export default function Expenses() {
   const router = useRouter();
   const [expenseList, setExpenseList] = useState<Expense[]>([]);
   const [columnList, setColumns] = useState<TableProps<Expense>["columns"]>();
