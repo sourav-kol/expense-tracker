@@ -13,9 +13,9 @@ function CardSection(prop: Props) {
         <Row>
             <p>{Title}</p>
         </Row>
-        <Col>
-            <h2><strong>₹ {Data}</strong></h2>
-        </Col>
+        <Row>
+            <h2><strong><span>₹</span>{Data}</strong></h2>
+        </Row>
     </Col>;
 }
 
