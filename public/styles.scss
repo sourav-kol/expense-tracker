@@ -117,7 +117,7 @@ h1 {
     padding: 4px 0px;
   }
 
-  span{
+  span {
     position: relative;
     font-size: 35px;
   }
@@ -196,6 +196,10 @@ input {
     height: 90px;
   }
 
+  .ant-row {
+    padding-top: 3px;
+  }
+  
   h2 {
     margin: 0px;
     font-size: 35px;
@@ -247,7 +251,8 @@ input {
       top: 10px;
       font-size: 18px;
     }
-    span{
+
+    span {
       font-size: 28px;
     }
   }
@@ -260,5 +265,16 @@ input {
 
   .form-btn {
     width: 80%
+  }
+
+  .detail-section {
+    left: 1%;
+    top: 2%;
+
+    .ant-flex {
+      flex-wrap: wrap;
+      flex-direction: column;
+      gap: 25px;
+    }
   }
 }
