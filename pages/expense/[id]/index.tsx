@@ -6,7 +6,8 @@ import { Expense } from "@/types";
 import { useRouter } from "next/router"
 import { Col, Flex, Row } from "antd";
 import Image from "next/image";
-import { getExpenseById } from "@/clientService/expenseService"
+import { getExpenseById } from "@/clientService/expenseService";
+import { formattedDate } from "@/helper/dateTimeHelper";
 
 import { TagsOutlined, CalendarOutlined, DollarOutlined, ClockCircleOutlined, FileTextOutlined } from "@ant-design/icons";
 import svgImg from "@/public/images/arrow-down_gray.svg"
@@ -23,12 +24,8 @@ function ExpenseDetails() {
     useEffect(() => {
         getExpenseById(id as string)
             .then(res => {
-                const formattedDate = new Intl.DateTimeFormat("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                }).format(new Date(res?.createdDate));
-                setExpense({ ...res, createdDate: formattedDate });
+                var date = formattedDate(res?.createdDate);
+                setExpense({ ...res, createdDate: date });
             })
             .catch(error => {
                 console.log(error);

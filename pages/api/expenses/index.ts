@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { mongoInitialize } from '@/Database/mongodb';
 import { ExpenseModel } from '@/model/expense';
 import { v4 } from 'uuid';
+import { Expense, Paged, Pagination } from "@/types";
 
 //expense controller
 export default async function handler(
@@ -23,8 +24,15 @@ export default async function handler(
             case 'GET':
                 //todo:
                 //should be in BE service
-                //should be paginated list
-                var result = await ExpenseModel.find({});
+                let pageSize: number = parseInt(req.query.pageSize as string) || 10;
+                let page: number = parseInt(req.query.page as string) || 1;
+
+                var expenses = await ExpenseModel.find({}).sort({ createdDate: 'desc' }).skip((page - 1) * pageSize).limit(pageSize);
+                var total = await ExpenseModel.countDocuments();
+                var result: Paged<Expense> = {
+                    data: expenses as Expense[],
+                    total: total
+                }
                 res.status(200).json(result);
                 break;
         }

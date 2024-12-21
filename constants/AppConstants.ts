@@ -1,25 +1,32 @@
-import { NavItems } from "@/types";
+import { NavItems, Pagination } from "@/types";
 
 export const Nav = () => {
     return {
         Items: [
             {
-                Key:"/dashboard",
-                Label:"Dashboard"
+                Key: "/dashboard",
+                Label: "Dashboard"
             },
             {
-                Key:"/expense",
-                Label:"Expense"
+                Key: "/expense",
+                Label: "Expense"
             },
             {
-                Key:"/report",
-                Label:"Report"
+                Key: "/report",
+                Label: "Report"
             },
         ]
-    }as NavItems
+    } as NavItems
 }
 
-export const DefaultPaginationValue = {
-        page: 0,
-        pageSize: 4
-} 
+export const DefaultPaginationValue: Pagination = {
+    page: 1,
+    pageSize: 3
+}
+
+export const DefaultCategory:Record<string, string> = {
+    "1": 'Food',
+    "2": 'Shopping',
+    "3": 'Bills',
+    "4": 'Entertainment',
+}

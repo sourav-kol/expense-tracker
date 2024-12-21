@@ -3,15 +3,19 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Col, Row, Button, Table } from "antd";
 import AppLayout from "@/layout/commonLayout";
-import { Expense } from "@/types";
+import { Category, Expense, Paged, Pagination } from "@/types";
 import type { TableProps } from "antd"
-import { DefaultPaginationValue } from "@/constants/AppConstants";
+import { DefaultPaginationValue, DefaultCategory } from "@/constants/AppConstants";
 import AddExpenseDrawer from "@/components/Expense/AddDrawer";
-import { getExpenses, createExpenses } from "@/clientService/expenseService"
+import { getExpenses, createExpenses } from "@/clientService/expenseService";
+import { formattedDate } from "@/helper/dateTimeHelper";
 
 export default function Expenses() {
   const router = useRouter();
-  const [expenseList, setExpenseList] = useState<Expense[]>([]);
+  const [expenseList, setExpenseList] = useState<Paged<Expense>>({
+    data: [],
+    total: 0
+  });
   const [columnList, setColumns] = useState<TableProps<Expense>["columns"]>();
   const [openDrawer, setDrawer] = useState<boolean>(false);
 
@@ -19,10 +23,16 @@ export default function Expenses() {
     setDrawer(!openDrawer);
   }
 
+  const defaultFilter: Pagination = {
+    page: DefaultPaginationValue.page,
+    pageSize: DefaultPaginationValue.pageSize
+  }
+
   const onFinish = (e: Expense) => {
     createExpenses(e)
       .then(res => {
         setDrawer(false);
+        getExpenseData(defaultFilter)
       }).catch(err => {
         console.log(err);
       })
@@ -31,10 +41,6 @@ export default function Expenses() {
   const onRowClick = (val: Expense, idx: number | undefined) => {
     router.push(`/expense/${val._id}`)
   }
-
-  useEffect(() => {
-    setExpenseList(expenseList as Expense[]);
-  }, [expenseList]);
 
   useEffect(() => {
     setColumns([{
@@ -48,9 +54,9 @@ export default function Expenses() {
       title: 'category'
     },
     {
-      key: 'date',
-      dataIndex: 'date',
-      title: 'date'
+      key: 'createdDate',
+      dataIndex: 'createdDate',
+      title: 'created date'
     },
     {
       key: 'amount',
@@ -58,19 +64,32 @@ export default function Expenses() {
       title: 'amount'
     }]);
 
-    //setExpenseList(ExpenseData.expenseList as Expense[]);
-
     //api call
-    getExpenses().then((res) => {
-      setExpenseList(res as Expense[]);
-    });
+    getExpenseData(defaultFilter);
 
     return () => {
-      setExpenseList([]);
+      setExpenseList({
+        data: [],
+        total: 0
+      });
       setColumns([]);
       setDrawer(false);
     }
   }, [])
+
+  const getExpenseData = (filter: Pagination) => {
+    getExpenses(filter).then((res) => {
+      res.data = res.data.map(item => (
+        {
+          ...item,
+          createdDate: formattedDate(item.createdDate),
+          category: DefaultCategory[item.category.toString()]
+        }
+      )
+      );
+      setExpenseList(res);
+    });
+  }
 
   return (
     <AppLayout>
@@ -82,9 +101,18 @@ export default function Expenses() {
         <Row>
           <section>
             {/* make as component */}
-            <Table sticky={true} columns={columnList} dataSource={expenseList} pagination={{
-              pageSize: DefaultPaginationValue.pageSize
-            }}
+            <Table sticky={true} columns={columnList} dataSource={expenseList.data}
+              pagination={{
+                total: expenseList.total,
+                pageSize: DefaultPaginationValue.pageSize,
+                onChange(page, pageSize) {
+                  var filter: Pagination = {
+                    page,
+                    pageSize: DefaultPaginationValue.pageSize
+                  }
+                  getExpenseData(filter);
+                },
+              }}
               onRow={(record, rowIndex) => {
                 return {
                   onClick: (event) => { onRowClick(record, rowIndex) },

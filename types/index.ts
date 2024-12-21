@@ -36,5 +36,9 @@ export enum Category {
 export type Pagination = {
     page: number,
     pageSize: number,
-    totalCount?: number
+}
+
+export type Paged<T> = {
+    data: T[],
+    total: number
 }

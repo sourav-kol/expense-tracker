@@ -1,8 +1,8 @@
-import { Expense } from '@/types';
+import { Expense, Paged, Pagination } from '@/types';
 import axios from 'axios';
 
-export const getExpenses = async (): Promise<any> => { //todo: fix return type
-    return axios.get("/api/expenses")
+export const getExpenses = async (pagination:Pagination): Promise<Paged<Expense>> => { //todo: fix return type
+    return axios.get("/api/expenses"+`?page=${pagination.page}&pageSize=${pagination.pageSize}`)
         .then((res) => {
             return res.data
         });
