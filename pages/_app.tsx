@@ -20,9 +20,9 @@ export default function RootLayout({ Component, pageProps }: AppProps) {
                 <Component {...pageProps} />
             </Content>
             {/* <Divider plain></Divider> */}
-            <Footer style={{ textAlign: 'center' }}>
+            {/* <Footer style={{ textAlign: 'center' }}>
                 Next Js Footer
-            </Footer>
+            </Footer> */}
         </Layout>
     )
 }

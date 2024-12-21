@@ -21,7 +21,7 @@ export const Nav = () => {
 
 export const DefaultPaginationValue: Pagination = {
     page: 1,
-    pageSize: 3
+    pageSize: 5
 }
 
 export const DefaultCategory:Record<string, string> = {

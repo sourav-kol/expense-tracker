@@ -199,7 +199,7 @@ input {
   .ant-row {
     padding-top: 3px;
   }
-  
+
   h2 {
     margin: 0px;
     font-size: 35px;
@@ -226,6 +226,10 @@ input {
       padding-left: 8px;
     }
   }
+}
+
+.ant-table-row {
+  height: 30px;
 }
 
 @media (max-width: $layout-breakpoint-small) {
