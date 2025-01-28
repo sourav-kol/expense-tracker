@@ -4,6 +4,8 @@ import type { AppProps } from 'next/app'
 import NavigationBar from '@/components/common/Navigation/NavigationBar';
 import { Nav } from '@/constants/AppConstants';
 import '../public/styles.scss';
+import '../public/global.css';
+
 
 const { Footer, Content } = Layout;
 
