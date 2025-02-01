@@ -26,9 +26,9 @@ const nextConfig = {
     compiler: {
         //removeConsole: process.env.NODE_ENV === "production",
     },
-    sassOptions: {
-        fiber: false,
-    },
+    // sassOptions: {
+    //     fiber: false,
+    // },
     modularizeImports: {
         antd4: {
             transform: 'antd4/lib/{{kebabCase member}}',

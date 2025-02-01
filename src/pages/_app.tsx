@@ -3,7 +3,7 @@ import { Layout,Divider } from 'antd';
 import type { AppProps } from 'next/app'
 import NavigationBar from '@/src/components/common/Navigation/NavigationBar';
 import { Nav } from '@/src/constants/AppConstants';
-import '../public/styles.scss';
+//import '../public/styles.scss';
 import '../public/global.css';
 
 
