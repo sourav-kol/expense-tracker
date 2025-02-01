@@ -1,5 +1,5 @@
-import AppLayout from "@/layout/commonLayout";
-import CardSection from "@/components/Dashboard/CardSection";
+import AppLayout from "@/src/layout/commonLayout";
+import CardSection from "@/src/components/Dashboard/CardSection";
 import { Flex } from "antd";
 
 export default function Dashboard() {

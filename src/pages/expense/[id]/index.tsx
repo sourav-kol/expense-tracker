@@ -1,16 +1,16 @@
 'use client'
 
 import { useState, useEffect } from "react"
-import AppLayout from "@/layout/commonLayout";
-import { Expense } from "@/types";
+import AppLayout from "@/src/layout/commonLayout";
+import { Expense } from "@/src/types";
 import { useRouter } from "next/router"
 import { Col, Flex, Row } from "antd";
 import Image from "next/image";
-import { getExpenseById } from "@/clientService/expenseService";
-import { formattedDate } from "@/helper/dateTimeHelper";
+import { getExpenseById } from "@/src/clientService/expenseService";
+import { formattedDate } from "@/src/helper/dateTimeHelper";
 
-import { TagsOutlined, CalendarOutlined, DollarOutlined, ClockCircleOutlined, FileTextOutlined } from "@ant-design/icons";
-import svgImg from "@/public/images/arrow-down_gray.svg"
+import { TagsOutlined, DollarOutlined, ClockCircleOutlined, FileTextOutlined } from "@ant-design/icons";
+import svgImg from "@/src/public/images/arrow-down_gray.svg"
 
 type Props = {
 

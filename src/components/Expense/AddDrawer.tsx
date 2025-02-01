@@ -1,5 +1,5 @@
 import { Form, Drawer, Button, Input, Select, Space } from "antd";
-import { Expense } from "@/types";
+import { Expense } from "@/src/types";
 
 type Props = {
     openDrawer: boolean,

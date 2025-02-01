@@ -1,4 +1,4 @@
-import { NavItems, Pagination } from "@/types";
+import { NavItems, Pagination } from "@/src/types";
 
 export const Nav = () => {
     return {

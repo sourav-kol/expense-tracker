@@ -1,6 +1,6 @@
 'use client'
 
-import { NavItem } from "@/types";
+import { NavItem } from "@/src/types";
 import Link from 'next/link'
 import { useRouter } from "next/router";
 

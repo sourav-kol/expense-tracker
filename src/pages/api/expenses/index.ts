@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { mongoInitialize } from '@/Database/mongodb';
-import { ExpenseModel } from '@/model/expense';
+import { mongoInitialize } from '@/src/Database/mongodb';
+import { ExpenseModel } from '@/src/model/expense';
 import { v4 } from 'uuid';
-import { Expense, Paged, Pagination } from "@/types";
+import { Expense, Paged, Pagination } from "@/src/types";
 
 //expense controller
 export default async function handler(

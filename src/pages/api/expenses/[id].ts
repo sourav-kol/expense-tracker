@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { mongoInitialize } from '@/Database/mongodb';
-import { ExpenseModel } from '@/model/expense';
+import { mongoInitialize } from '@/src/Database/mongodb';
+import { ExpenseModel } from '@/src/model/expense';
 
 //expense controller
 export default async function handler(

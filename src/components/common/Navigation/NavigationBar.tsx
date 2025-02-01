@@ -1,4 +1,4 @@
-import { NavItems } from '@/types';
+import { NavItems } from '@/src/types';
 import { Flex } from 'antd';
 import NavigationItem from "./NavigationItems";
 

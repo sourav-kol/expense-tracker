@@ -2,13 +2,13 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Col, Row, Button, Table } from "antd";
-import AppLayout from "@/layout/commonLayout";
-import { Category, Expense, Paged, Pagination } from "@/types";
+import AppLayout from "@/src/layout/commonLayout";
+import { Category, Expense, Paged, Pagination } from "@/src/types";
 import type { TableProps } from "antd"
-import { DefaultPaginationValue, DefaultCategory } from "@/constants/AppConstants";
-import AddExpenseDrawer from "@/components/Expense/AddDrawer";
-import { getExpenses, createExpenses } from "@/clientService/expenseService";
-import { formattedDate } from "@/helper/dateTimeHelper";
+import { DefaultPaginationValue, DefaultCategory } from "@/src/constants/AppConstants";
+import AddExpenseDrawer from "@/src/components/Expense/AddDrawer";
+import { getExpenses, createExpenses } from "@/src/clientService/expenseService";
+import { formattedDate } from "@/src/helper/dateTimeHelper";
 
 export default function Expenses() {
   const router = useRouter();

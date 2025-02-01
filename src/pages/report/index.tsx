@@ -1,4 +1,4 @@
-import AppLayout from "@/layout/commonLayout";
+import AppLayout from "@/src/layout/commonLayout";
 
 export default function Report() {
   return (
