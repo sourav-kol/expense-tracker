@@ -1,30 +1,25 @@
 import React from 'react';
-import { Layout,Divider } from 'antd';
+// import { Layout } from 'antd';
 import type { AppProps } from 'next/app'
-import NavigationBar from '@/src/components/common/Navigation/NavigationBar';
+import NavigationBar from '@/src/components/Navigation/NavigationBar';
 import { Nav } from '@/src/constants/AppConstants';
-//import '../public/styles.scss';
+
 import '../public/global.css';
 
-
-const { Footer, Content } = Layout;
+// const { Content } = Layout;
 
 const metadata = {
-    title: 'Story',
-    description: 'Tell your story',
+    title: 'Expense tracker',
+    description: 'Track your expenses',
 }
 
 export default function RootLayout({ Component, pageProps }: AppProps) {
     return (
-        <Layout className='layout'>
-            <NavigationBar NavItem={Nav()}></NavigationBar>
-            <Content className='content'>
+        <div className="min-h-screen flex flex-col bg-gray-200">
+            <NavigationBar NavItem={Nav()} />
+            <main className="flex-grow container mx-auto p-4">
                 <Component {...pageProps} />
-            </Content>
-            {/* <Divider plain></Divider> */}
-            {/* <Footer style={{ textAlign: 'center' }}>
-                Next Js Footer
-            </Footer> */}
-        </Layout>
+            </main>
+        </div>
     )
 }
