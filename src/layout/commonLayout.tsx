@@ -1,7 +1,4 @@
 import React from "react";
-import { Layout, Flex } from 'antd';
-
-const { Content } = Layout;
 
 type Props = {
     children: React.ReactNode
@@ -10,8 +7,8 @@ type Props = {
 export default function AppLayout(props: Props) {
     const { children } = props
     return (
-        <Content className="layout-common">
+        <div className="">
             {children}
-        </Content>
+        </div>
     );
 }

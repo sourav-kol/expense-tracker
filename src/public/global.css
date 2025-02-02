@@ -69,3 +69,7 @@
 .text-crimson {
   color: crimson;
 }
+
+.layout-common {
+  margin-top: 6rem; /* Adjust this value if needed to avoid overlap */
+}
