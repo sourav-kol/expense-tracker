@@ -13,7 +13,9 @@ const metadata = {
 export default function RootLayout({ Component, pageProps }: AppProps) {
     return (
         <div className="min-h-screen flex flex-col bg-gray-200">
-            <NavigationBar NavItem={Nav()} />
+            <div className=''>
+                <NavigationBar NavItem={Nav()} />
+            </div>
             <main className="flex-grow container mx-auto mt-24 p-2">
                 <Component {...pageProps} />
             </main>

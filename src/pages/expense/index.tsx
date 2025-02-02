@@ -7,6 +7,7 @@ import { DefaultPaginationValue, DefaultCategory } from "@/src/constants/AppCons
 import AddExpenseDrawer from "@/src/components/Expense/AddDrawer";
 import { getExpenses, createExpenses } from "@/src/clientService/expenseService";
 import { formattedDate } from "@/src/helper/dateTimeHelper";
+import { Button } from "@/src/components/ui/button";
 
 import {
   AccessorColumnDef,
@@ -109,15 +110,17 @@ export default function Expenses() {
 
   return (
     <AppLayout>
-      <h1 className="text-center text-2xl font-bold mb-4">Expense</h1>
-
-      <div className="p-2">
-        <Table className="min-w-full bg-white border border-gray-200 rounded-lg">
-          <TableHeader className="bg-crimson rounded-t-lg">
+      <h1 className="text-center text-2xl font-bold mb-4 sticky top-24 z-10">Expense</h1>
+      <div className="flex justify-end mb-4">
+        <Button className="bg-gray-800 text-white hover:bg-crimson" onClick={toggleDrawer}>Add Expense</Button>
+      </div>
+      <div className="p-2 mt-4">
+        <Table className="min-w-full bg-white border border-gray-200">
+          <TableHeader className="bg-crimson">
             {table.getHeaderGroups().map(headerGroup => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map(header => (
-                  <TableHead key={header.id} className="px-4 py-2 border-b border-gray-200 text-left text-sm font-medium text-white">
+                  <TableHead key={header.id} className="px-6 py-3 border-b border-gray-200 text-left text-sm font-medium text-white">
                     {header.isPlaceholder
                       ? null
                       : flexRender(
@@ -131,7 +134,7 @@ export default function Expenses() {
           </TableHeader>
           <TableBody>
             {table.getRowModel().rows.map(row => (
-              <TableRow key={row.id} className="hover:bg-gray-50 px-2">
+              <TableRow key={row.id} className="hover:bg-gray-50 px-2" onClick={() => onRowClick(row.original, row.index)}>
                 {row.getVisibleCells().map(cell => (
                   <TableCell key={cell.id} className="px-4 py-3 border-b border-gray-200 text-sm text-gray-700">
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
