@@ -8,7 +8,6 @@ import { Button } from "@/src/components/ui/button";
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
@@ -43,14 +42,7 @@ function AddExpenseDrawer(prop: Props) {
     const { openDrawer, onFinish, toggleDrawer } = prop;
 
     const form = useForm<Expense>({
-        resolver: zodResolver(formSchema),
-        defaultValues: {
-            title: "",
-            category: 1,
-            amount: 0,
-            createdDate: new Date().toISOString(),
-            notes: "",
-        },
+        resolver: zodResolver(formSchema)
     });
 
     return (
@@ -70,9 +62,6 @@ function AddExpenseDrawer(prop: Props) {
                                     <FormControl>
                                         <Input placeholder="Enter title" {...field} />
                                     </FormControl>
-                                    <FormDescription>
-                                        This is your public display name.
-                                    </FormDescription>
                                     <FormMessage />
                                 </FormItem>
                             )}
