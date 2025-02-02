@@ -37,4 +37,4 @@ next-env.d.ts
 
 .env
 
-*src/example.test/*
+# *src/example.test/*

@@ -1,75 +1,127 @@
-import { Form, Drawer, Button, Input, Select, Space } from "antd";
 import { Expense } from "@/src/types";
+import {
+    Drawer,
+    DrawerContent,
+    DrawerHeader
+} from "@/src/components/ui/drawer";
+import { Button } from "@/src/components/ui/button";
+import {
+    Form,
+    FormControl,
+    FormDescription,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from "@/src/components/ui/form";
+import { Select, SelectItem, SelectValue, SelectTrigger } from "@/src/components/ui/select"
+import { Input } from "@/src/components/ui/input"
+import { SelectContent } from "@radix-ui/react-select"
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 type Props = {
     openDrawer: boolean,
-    onFinish: (e:Expense) => void,
+    onFinish: (e: Expense) => void,
     toggleDrawer: () => void
 }
 
+const formSchema = z.object({
+    _id: z.string().optional(),
+    title: z.string().min(2, {
+        message: "Title cannot be empty",
+    }),
+    category: z.string().default("1"),
+    amount: z.string().min(1, {
+        message: "Amount must be a positive number",
+    })
+})
+
 function AddExpenseDrawer(prop: Props) {
     const { openDrawer, onFinish, toggleDrawer } = prop;
-    return <Drawer
-        maskClosable={false}
-        closable
-        destroyOnClose
-        title={<h3>Add Expense</h3>}
-        placement="right"
-        open={openDrawer}
-        onClose={toggleDrawer}
-        size={"large"}
-    >
-        <Form
-            name="basic"
-            labelCol={{ span: 8 }}
-            wrapperCol={{ span: 16 }}
-            style={{ maxWidth: 600 }}
-            initialValues={{ remember: true }}
-            onFinish={onFinish}
-            autoComplete="off"
-            layout="vertical"
-        >
-            <Form.Item<string>
-                label="Title"
-                name="title"
-                rules={[{ required: true, message: 'Title Required' }]}
-            >
-                <Input />
-            </Form.Item>
 
-            <Form.Item<number> label="Category" name="category" initialValue={1}>
-                <Select
-                    key={"category"}
-                    options={[
-                        { value: 1, label: 'Food', },
-                        { value: 2, label: 'Shopping' },
-                        { value: 3, label: 'Bills' },
-                        { value: 4, label: 'Entertainment' },
-                    ]}
-                />
-            </Form.Item>
-            <Form.Item<number>
-                label="Amount"
-                name="amount"
-                rules={[{ required: false }]}
-            >
-                <Input type="number" />
-            </Form.Item>
-            <div className="form-btn">
-                <Form.Item wrapperCol={{ offset: 16, span: 14 }}>
-                    <Space size={"middle"}>
-                        <Button type="primary" htmlType="submit">
-                            Submit
-                        </Button>
+    const form = useForm<Expense>({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            title: "",
+            category: 1,
+            amount: 0,
+            createdDate: new Date().toISOString(),
+            notes: "",
+        },
+    });
 
-                        <Button onClick={toggleDrawer}>
-                            cancel
-                        </Button>
-                    </Space>
-                </Form.Item>
-            </div>
-        </Form>
-    </Drawer>
+    return (
+        <Drawer open={openDrawer} direction="left">
+            <DrawerContent className="w-full md:w-1/2 h-full">
+                <div className="p-4">
+                    <DrawerHeader>
+                        <h3 className="text-lg font-bold mb-4">Add Expense</h3>
+                    </DrawerHeader>
+                    <Form {...form}>
+                        <FormField
+                            control={form.control}
+                            name="title"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Title</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="Enter title" {...field} />
+                                    </FormControl>
+                                    <FormDescription>
+                                        This is your public display name.
+                                    </FormDescription>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="category"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Category</FormLabel>
+                                    <Select onValueChange={field.onChange}>
+                                        <FormControl>
+                                            <SelectTrigger className="w-full">
+                                                <SelectValue placeholder="Select a category" />
+                                            </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent className="w-full bg-white z-50">
+                                            <SelectItem className="w-full" value={"1"}>Food</SelectItem>
+                                            <SelectItem className="w-full" value={"2"}>Shopping</SelectItem>
+                                            <SelectItem className="w-full" value={"3"}>Bills</SelectItem>
+                                            <SelectItem className="w-full" value={"4"}>Entertainment</SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="amount"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Amount</FormLabel>
+                                    <FormControl>
+                                        <Input type="number" placeholder="Enter amount" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <div className="flex space-x-2 py-8">
+                            <Button type="submit" onClick={form.handleSubmit(onFinish)}>Submit</Button>
+                            <Button variant="outline" onClick={toggleDrawer}>Cancel</Button>
+                        </div>
+                    </Form>
+                </div>
+            </DrawerContent>
+        </Drawer>
+    );
 }
 
 export default AddExpenseDrawer;

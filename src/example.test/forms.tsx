@@ -42,68 +42,68 @@ export function ProfileForm() {
     })
 
     // 2. Define a submit handler.
-    function onSubmit(values:Expense) {
+    function onSubmit(values: Expense) {
         // Do something with the form values.
         console.log(values)
     }
 
     return (
-        <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                <FormField
-                    control={form.control}
-                    name="title"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Title</FormLabel>
-                            <FormControl>
-                                <Input placeholder="Enter title" {...field} />
-                            </FormControl>
-                            <FormDescription>
-                                This is your public display name.
-                            </FormDescription>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="category"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Category</FormLabel>
-                            <Select onValueChange={field.onChange}>
+            <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                    <FormField
+                        control={form.control}
+                        name="title"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Title</FormLabel>
                                 <FormControl>
-                                    <SelectTrigger className="w-full">
-                                        <SelectValue placeholder="Select a category" />
-                                    </SelectTrigger>
+                                    <Input placeholder="Enter title" {...field} />
                                 </FormControl>
-                                <SelectContent className="w-full bg-white z-50">
-                                    <SelectItem className="w-full" value={"1"}>Food</SelectItem>
-                                    <SelectItem className="w-full" value={"2"}>Shopping</SelectItem>
-                                    <SelectItem className="w-full" value={"3"}>Bills</SelectItem>
-                                    <SelectItem className="w-full" value={"4"}>Entertainment</SelectItem>
-                                </SelectContent>
-                            </Select>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="amount"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Amount</FormLabel>
-                            <FormControl>
-                                <Input type="number" placeholder="Enter amount" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <Button type="submit">Submit</Button>
-            </form>
-        </Form>
+                                <FormDescription>
+                                    This is your public display name.
+                                </FormDescription>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="category"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Category</FormLabel>
+                                <Select onValueChange={field.onChange}>
+                                    <FormControl>
+                                        <SelectTrigger className="w-full">
+                                            <SelectValue placeholder="Select a category" />
+                                        </SelectTrigger>
+                                    </FormControl>
+                                    <SelectContent className="w-full bg-white z-50">
+                                        <SelectItem className="w-full" value={"1"}>Food</SelectItem>
+                                        <SelectItem className="w-full" value={"2"}>Shopping</SelectItem>
+                                        <SelectItem className="w-full" value={"3"}>Bills</SelectItem>
+                                        <SelectItem className="w-full" value={"4"}>Entertainment</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="amount"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Amount</FormLabel>
+                                <FormControl>
+                                    <Input type="number" placeholder="Enter amount" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <Button type="submit">Submit</Button>
+                </form>
+            </Form>
     )
 }

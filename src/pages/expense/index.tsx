@@ -4,13 +4,12 @@ import { useRouter } from "next/router";
 import AppLayout from "@/src/layout/commonLayout";
 import { Expense, Paged, Pagination } from "@/src/types";
 import { DefaultPaginationValue, DefaultCategory } from "@/src/constants/AppConstants";
-import AddExpenseDrawer from "@/src/components/Expense/AddDrawer";
 import { getExpenses, createExpenses } from "@/src/clientService/expenseService";
 import { formattedDate } from "@/src/helper/dateTimeHelper";
 import { Button } from "@/src/components/ui/button";
+import AddExpenseDrawer from "@/src/components/Expense/AddDrawer";
 
 import {
-  AccessorColumnDef,
   createColumnHelper,
   flexRender,
   getCoreRowModel,
@@ -38,13 +37,14 @@ export default function Expenses() {
   }
 
   const onFinish = (e: Expense) => {
-    createExpenses(e)
-      .then(res => {
-        setDrawer(false);
-        getExpenseData(defaultFilter)
-      }).catch(err => {
-        console.log(err);
-      })
+    console.log(e);
+    // createExpenses(e)
+    //   .then(res => {
+    //     setDrawer(false);
+    //     getExpenseData(defaultFilter)
+    //   }).catch(err => {
+    //     console.log(err);
+    //   })
   }
 
   const onRowClick = (val: Expense, idx: number | undefined) => {
@@ -60,7 +60,6 @@ export default function Expenses() {
         data: [],
         total: 0
       });
-      // setColumns([]);
       setDrawer(false);
     }
   }, [])
