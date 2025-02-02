@@ -20,10 +20,10 @@ export type Expense = {
     _id: String,
     title: string,
     category: Category | string, //todo: fix this
-    date: string, //todo: change to date type
+    // date: string, //todo: change to date type
     amount: number,
     createdDate: string,
-    notes: string
+    notes?: string
 }
 
 export enum Category {

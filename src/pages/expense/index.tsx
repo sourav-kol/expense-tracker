@@ -1,14 +1,22 @@
 'use client'
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { Col, Row, Button, Table } from "antd";
 import AppLayout from "@/src/layout/commonLayout";
-import { Category, Expense, Paged, Pagination } from "@/src/types";
-import type { TableProps } from "antd"
+import { Expense, Paged, Pagination } from "@/src/types";
 import { DefaultPaginationValue, DefaultCategory } from "@/src/constants/AppConstants";
 import AddExpenseDrawer from "@/src/components/Expense/AddDrawer";
 import { getExpenses, createExpenses } from "@/src/clientService/expenseService";
 import { formattedDate } from "@/src/helper/dateTimeHelper";
+
+import {
+  AccessorColumnDef,
+  createColumnHelper,
+  flexRender,
+  getCoreRowModel,
+  useReactTable,
+} from '@tanstack/react-table';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/src/components/ui/table"
+
 
 export default function Expenses() {
   const router = useRouter();
@@ -16,7 +24,7 @@ export default function Expenses() {
     data: [],
     total: 0
   });
-  const [columnList, setColumns] = useState<TableProps<Expense>["columns"]>();
+
   const [openDrawer, setDrawer] = useState<boolean>(false);
 
   const toggleDrawer = () => {
@@ -43,27 +51,6 @@ export default function Expenses() {
   }
 
   useEffect(() => {
-    setColumns([{
-      key: 'title',
-      dataIndex: 'title',
-      title: 'title',
-    },
-    {
-      key: 'category',
-      dataIndex: 'category',
-      title: 'category'
-    },
-    {
-      key: 'createdDate',
-      dataIndex: 'createdDate',
-      title: 'created date'
-    },
-    {
-      key: 'amount',
-      dataIndex: 'amount',
-      title: 'amount'
-    }]);
-
     //api call
     getExpenseData(defaultFilter);
 
@@ -72,7 +59,7 @@ export default function Expenses() {
         data: [],
         total: 0
       });
-      setColumns([]);
+      // setColumns([]);
       setDrawer(false);
     }
   }, [])
@@ -89,38 +76,72 @@ export default function Expenses() {
       );
       setExpenseList(res);
     });
-  }
+  };
+
+  const columnHelper = createColumnHelper<Expense>();
+
+  //todo: consider changing this 
+  //and using better way to define columns
+  const columns = [
+    columnHelper.accessor(row => row.title, {
+      id: 'Title',
+      cell: info => <>{info.getValue()}</>
+    }),
+    columnHelper.accessor(row => row.category, {
+      id: 'Category',
+      cell: info => <>{info.getValue()}</>
+    }),
+    columnHelper.accessor(row => row.createdDate, {
+      id: 'Created Date',
+      cell: info => <>{info.getValue()}</>
+    }),
+    columnHelper.accessor(row => row.amount, {
+      id: 'Amount',
+      cell: info => <>{info.getValue()}</>
+    }),
+  ]
+
+  const table = useReactTable({
+    data: expenseList.data,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+  })
 
   return (
     <AppLayout>
-      <h1>Expense</h1>
-      <Col className="expense-section">
-        <Row justify={"end"}>
-          <Button type="primary" onClick={toggleDrawer}>Add Expense</Button>
-        </Row>
-        <Row>
-          <section>
-            {/* make as component */}
-            <Table sticky={true} columns={columnList} dataSource={expenseList.data}
-              pagination={{
-                total: expenseList.total,
-                pageSize: DefaultPaginationValue.pageSize,
-                onChange(page, pageSize) {
-                  var filter: Pagination = {
-                    page,
-                    pageSize: DefaultPaginationValue.pageSize
-                  }
-                  getExpenseData(filter);
-                },
-              }}
-              onRow={(record, rowIndex) => {
-                return {
-                  onClick: (event) => { onRowClick(record, rowIndex) },
-                };
-              }} />
-          </section>
-        </Row>
-      </Col>
+      <h1 className="text-center text-2xl font-bold mb-4">Expense</h1>
+
+      <div className="p-2">
+        <Table className="min-w-full bg-white border border-gray-200 rounded-lg">
+          <TableHeader className="bg-crimson rounded-t-lg">
+            {table.getHeaderGroups().map(headerGroup => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map(header => (
+                  <TableHead key={header.id} className="px-4 py-2 border-b border-gray-200 text-left text-sm font-medium text-white">
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
+                  </TableHead>
+                ))}
+              </TableRow>
+            ))}
+          </TableHeader>
+          <TableBody>
+            {table.getRowModel().rows.map(row => (
+              <TableRow key={row.id} className="hover:bg-gray-50 px-2">
+                {row.getVisibleCells().map(cell => (
+                  <TableCell key={cell.id} className="px-4 py-3 border-b border-gray-200 text-sm text-gray-700">
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
 
       <AddExpenseDrawer openDrawer={openDrawer} toggleDrawer={toggleDrawer} onFinish={(e) => onFinish(e)} />
     </AppLayout >
