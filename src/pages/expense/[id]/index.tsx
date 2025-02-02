@@ -40,7 +40,7 @@ function ExpenseDetails() {
         <AppLayout>
             <div className="flex justify-between items-center mb-4">
                 <Button variant="outline" onClick={handleBack}>Back</Button>
-                <h1 className="text-center text-2xl font-bold">Expense Detail</h1>
+                <h1 className="text-center text-2xl font-bold flex-grow">Expense Detail</h1>
             </div>
             {expense && (
                 <Card className="w-full md:w-1/2 bg-white shadow-md rounded-lg p-4 mx-auto">
