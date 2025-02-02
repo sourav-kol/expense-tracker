@@ -1,15 +1,29 @@
 import AppLayout from "@/src/layout/commonLayout";
-import CardSection from "@/src/components/Dashboard/CardSection";
-import { Flex } from "antd";
+import { Card, CardContent, CardHeader, CardTitle } from "@/src/components/ui/card";
 
 export default function Dashboard() {
   return (
     <AppLayout>
-      <h1>Dashboard</h1>
-      <Flex className="dashboard-flex">
-        <CardSection Title="Total Expenses" Data={3000} />
-        <CardSection Title="Expense This Month" Data={1000} />
-      </Flex>
+      <h1 className="text-center text-2xl font-bold mb-4">Dashboard</h1>
+      <div className="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
+        <Card className="w-full md:w-1/3 bg-crimson text-white">
+          <CardHeader>
+            <CardTitle className="font-bold">Total Expenses</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-2xl">₹3000</p>
+          </CardContent>
+        </Card>
+        <Card className="w-full md:w-1/3 bg-crimson text-white">
+          <CardHeader>
+            <CardTitle className="font-bold">Expense This Month</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-2xl">₹1000</p>
+          </CardContent>
+        </Card>
+      </div>
+      {/* charts here... */}
     </AppLayout>
   );
 }
