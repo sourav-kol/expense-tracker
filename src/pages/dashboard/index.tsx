@@ -3,8 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/src/components/ui/ca
 
 export default function Dashboard() {
   return (
-    <AppLayout>
-      <h1 className="text-center text-2xl font-bold mb-4">Dashboard</h1>
+    <AppLayout title="Dashboard">
       <div className="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
         <Card className="w-full md:w-1/3 bg-crimson text-white">
           <CardHeader>

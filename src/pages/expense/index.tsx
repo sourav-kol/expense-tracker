@@ -108,8 +108,7 @@ export default function Expenses() {
   })
 
   return (
-    <AppLayout>
-      <h1 className="text-center text-2xl font-bold mb-4 sticky top-24 z-10">Expense</h1>
+    <AppLayout title="Expense">
       <div className="flex justify-end mb-4">
         <Button className="bg-gray-800 text-white hover:bg-crimson" onClick={toggleDrawer}>Add Expense</Button>
       </div>
