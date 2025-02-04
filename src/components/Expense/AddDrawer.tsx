@@ -50,7 +50,7 @@ function AddExpenseDrawer(prop: Props) {
             <DrawerContent className="w-full md:w-1/2 h-full">
                 <div className="p-4">
                     <DrawerHeader>
-                        <h3 className="text-lg font-bold mb-4">Add Expense</h3>
+                        <h3 className="text-xl font-bold mb-4 text-crimson">Add Expense</h3>
                     </DrawerHeader>
                     <Form {...form}>
                         <FormField
@@ -78,6 +78,7 @@ function AddExpenseDrawer(prop: Props) {
                                                 <SelectValue placeholder="Select a category" />
                                             </SelectTrigger>
                                         </FormControl>
+                                        {/* todo: take from list */}
                                         <SelectContent className="w-full bg-white z-50">
                                             <SelectItem className="w-full" value={"1"}>Food</SelectItem>
                                             <SelectItem className="w-full" value={"2"}>Shopping</SelectItem>
@@ -103,7 +104,7 @@ function AddExpenseDrawer(prop: Props) {
                             )}
                         />
                         <div className="flex space-x-2 py-8">
-                            <Button type="submit" onClick={form.handleSubmit(onFinish)}>Submit</Button>
+                            <Button type="submit" className="" onClick={form.handleSubmit(onFinish)}>Submit</Button>
                             <Button variant="outline" onClick={toggleDrawer}>Cancel</Button>
                         </div>
                     </Form>
