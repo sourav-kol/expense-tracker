@@ -37,14 +37,13 @@ export default function Expenses() {
   }
 
   const onFinish = (e: Expense) => {
-    console.log(e);
-    // createExpenses(e)
-    //   .then(res => {
-    //     setDrawer(false);
-    //     getExpenseData(defaultFilter)
-    //   }).catch(err => {
-    //     console.log(err);
-    //   })
+    createExpenses(e)
+      .then(res => {
+        setDrawer(false);
+        getExpenseData(defaultFilter)
+      }).catch(err => {
+        console.log(err);
+      })
   }
 
   const onRowClick = (val: Expense, idx: number | undefined) => {
