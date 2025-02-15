@@ -18,9 +18,10 @@ import { Input } from "@/src/components/ui/input"
 import { SelectContent } from "@radix-ui/react-select"
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler, SubmitErrorHandler } from "react-hook-form";
 import { z } from "zod";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+// import Spinner from "@/src/components/ui/spinner";
 
 type Props = {
     openDrawer: boolean,
@@ -46,78 +47,97 @@ function AddExpenseDrawer(prop: Props) {
         resolver: zodResolver(formSchema)
     });
 
-    useEffect(() => { 
+    const [submitDisabled, setSubmitDisabled] = useState<boolean>(false);
+    const onSubmit: SubmitHandler<Expense> = (data) => {
+        setSubmitDisabled(true);
+        onFinish(data);
+    };
+    const onError: SubmitErrorHandler<Expense> = (errors) => {
+        setSubmitDisabled(false);
+    };
+
+    const onHandleSubmit = () => {
+        form.handleSubmit(onSubmit, onError)();
+    }
+
+    useEffect(() => {
+        setSubmitDisabled(false);
+
         return () => {
+            setSubmitDisabled(true);
             form.reset();
         }
     }, []);
 
     return (
-        <Drawer open={openDrawer} direction="right">
-            <DrawerContent className="w-full md:w-1/2 h-full">
-                <div className="p-4">
-                    <DrawerHeader>
-                        <h3 className="text-xl font-bold mb-4 text-crimson">Add Expense</h3>
-                    </DrawerHeader>
-                    <Form {...form}>
-                        <FormField
-                            control={form.control}
-                            name="title"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Title</FormLabel>
-                                    <FormControl>
-                                        <Input placeholder="Enter title" {...field} />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <FormField
-                            control={form.control}
-                            name="category"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Category</FormLabel>
-                                    <Select onValueChange={field.onChange}>
+        <>
+
+            <Drawer open={openDrawer} direction="right">
+                <DrawerContent className="w-full md:w-1/2 h-full">
+                    <div className="p-4">
+                        <DrawerHeader>
+                            <h3 className="text-xl font-bold mb-4 text-crimson">Add Expense</h3>
+                        </DrawerHeader>
+                        <Form {...form}>
+                            <FormField
+                                control={form.control}
+                                name="title"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Title</FormLabel>
                                         <FormControl>
-                                            <SelectTrigger className="w-full">
-                                                <SelectValue placeholder="Select a category" />
-                                            </SelectTrigger>
+                                            <Input placeholder="Enter title" {...field} />
                                         </FormControl>
-                                        {/* todo: take from list */}
-                                        <SelectContent className="w-full bg-white z-50">
-                                            <SelectItem className="w-full" value={"1"}>Food</SelectItem>
-                                            <SelectItem className="w-full" value={"2"}>Shopping</SelectItem>
-                                            <SelectItem className="w-full" value={"3"}>Bills</SelectItem>
-                                            <SelectItem className="w-full" value={"4"}>Entertainment</SelectItem>
-                                        </SelectContent>
-                                    </Select>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <FormField
-                            control={form.control}
-                            name="amount"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Amount</FormLabel>
-                                    <FormControl>
-                                        <Input type="number" placeholder="Enter amount" {...field} />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <div className="flex space-x-2 py-8">
-                            <Button type="submit" className="" onClick={form.handleSubmit(onFinish)}>Submit</Button>
-                            <Button variant="outline" onClick={toggleDrawer}>Cancel</Button>
-                        </div>
-                    </Form>
-                </div>
-            </DrawerContent>
-        </Drawer>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="category"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Category</FormLabel>
+                                        <Select required={true} onValueChange={field.onChange}>
+                                            <FormControl>
+                                                <SelectTrigger className="w-full">
+                                                    <SelectValue placeholder="Select a category" />
+                                                </SelectTrigger>
+                                            </FormControl>
+                                            {/* todo: take from list */}
+                                            <SelectContent className="w-full bg-white z-50">
+                                                <SelectItem className="w-full" value={"1"}>Food</SelectItem>
+                                                <SelectItem className="w-full" value={"2"}>Shopping</SelectItem>
+                                                <SelectItem className="w-full" value={"3"}>Bills</SelectItem>
+                                                <SelectItem className="w-full" value={"4"}>Entertainment</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="amount"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Amount</FormLabel>
+                                        <FormControl>
+                                            <Input type="number" placeholder="Enter amount" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <div className="flex space-x-2 py-8">
+                                <Button type="submit" disabled={submitDisabled} className="" onClick={onHandleSubmit}>Submit</Button>
+                                <Button variant="outline" onClick={toggleDrawer}>Cancel</Button>
+                            </div>
+                        </Form>
+                    </div>
+                </DrawerContent>
+            </Drawer>
+        </>
     );
 }
 

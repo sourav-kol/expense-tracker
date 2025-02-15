@@ -37,6 +37,7 @@ export default function Expenses() {
   }
 
   const onFinish = (e: Expense) => {
+    console.log("making a call...",e);
     createExpenses(e)
       .then(res => {
         setDrawer(false);

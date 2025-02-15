@@ -79,6 +79,10 @@
   background-color: crimson;
 }
 
+.fill-crimson {
+  fill: crimson;
+}
+
 .layout-common {
   margin-top: 6rem;
   /* Adjust this value if needed to avoid overlap */
