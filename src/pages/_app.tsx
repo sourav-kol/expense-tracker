@@ -29,7 +29,7 @@ export default function RootLayout({ Component, pageProps }: AppProps) {
             <div className={`z-10 fixed w-full h-24 ${isScrolled ? 'bg-gray-200' : ''}`}>
                 <NavigationBar NavItem={Nav()} />
             </div>
-            <main className="flex-grow container mx-auto mt-24 p-2">
+            <main className="flex-grow w-4/5 container mx-auto mt-24 p-2">
                 <Component {...pageProps} />
             </main>
         </div>

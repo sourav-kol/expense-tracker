@@ -143,7 +143,7 @@ export default function Expenses() {
         </Table>
       </div>
 
-      <AddExpenseDrawer openDrawer={openDrawer} toggleDrawer={toggleDrawer} onFinish={(e) => onFinish(e)} />
+      {openDrawer && <AddExpenseDrawer openDrawer={openDrawer} toggleDrawer={toggleDrawer} onFinish={(e) => onFinish(e)} />}
     </AppLayout >
   );
 }

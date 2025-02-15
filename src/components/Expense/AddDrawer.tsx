@@ -20,6 +20,7 @@ import { SelectContent } from "@radix-ui/react-select"
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useEffect } from "react";
 
 type Props = {
     openDrawer: boolean,
@@ -45,8 +46,14 @@ function AddExpenseDrawer(prop: Props) {
         resolver: zodResolver(formSchema)
     });
 
+    useEffect(() => { 
+        return () => {
+            form.reset();
+        }
+    }, []);
+
     return (
-        <Drawer open={openDrawer} direction="left">
+        <Drawer open={openDrawer} direction="right">
             <DrawerContent className="w-full md:w-1/2 h-full">
                 <div className="p-4">
                     <DrawerHeader>
