@@ -42,3 +42,13 @@ export type Paged<T> = {
     data: T[],
     total: number
 }
+
+export type DashBoard = {
+    totalExpense?: string,
+    currentMonthExpense: number,
+}
+
+export type DashBoardFilter = {
+    startDate: Date,
+    endDate: Date
+}
