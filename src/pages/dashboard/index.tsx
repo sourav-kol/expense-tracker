@@ -3,14 +3,17 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/src/components/ui/ca
 import { useEffect, useState } from "react";
 import { getDashboardDetails } from "@/src/clientService/dashboardService";
 import { DashBoard, DashBoardFilter } from "@/src/types";
+import { formattedDate } from "@/src/helper/dateTimeHelper";
 
 export default function Dashboard() {
 
   const [dashBoardDetails, setDashBoardDetails] = useState<DashBoard>();
-
+  const [dateRange, setDateRange] = useState<{ startDate: Date, endDate: Date }>(); 
   useEffect(() => {
     const startOfMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
     const endOfMonth = new Date(new Date().getFullYear(), new Date().getMonth() + 1);
+
+    setDateRange({ startDate: startOfMonth, endDate: endOfMonth });
 
     var filter: DashBoardFilter = {
       startDate: startOfMonth,
@@ -36,6 +39,7 @@ export default function Dashboard() {
         <Card className="w-full md:w-1/3 bg-crimson text-white">
           <CardHeader>
             <CardTitle className="font-bold">Expense This Month</CardTitle>
+            <p className="text-xs">{dateRange && `${formattedDate(dateRange.startDate.toString())} - ${formattedDate(dateRange.endDate.toString())}`}</p>
           </CardHeader>
           <CardContent>
             <p className="text-2xl">₹ {dashBoardDetails?.currentMonthExpense}</p>
