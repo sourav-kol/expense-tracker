@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 
 export const mongoInitialize = async () => {
-
     mongoose.connect(process.env.MONGO_URL as string, {
     })
         .then(db => {

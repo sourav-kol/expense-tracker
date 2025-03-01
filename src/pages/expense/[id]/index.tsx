@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import AppLayout from "@/src/layout/commonLayout";
 import { Expense } from "@/src/types";
 import { useRouter } from "next/router"
-import { getExpenseById } from "@/src/clientService/expenseService";
+import { getExpenseById } from "@/src/service/expenseService";
 import { formattedDate } from "@/src/helper/dateTimeHelper";
 import { Card, CardContent, CardHeader, CardTitle } from "@/src/components/ui/card";
 import { TagsOutlined, DollarOutlined, ClockCircleOutlined, FileTextOutlined } from "@ant-design/icons";

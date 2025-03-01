@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import AppLayout from "@/src/layout/commonLayout";
 import { Expense, Paged, Pagination } from "@/src/types";
 import { DefaultPaginationValue, DefaultCategory } from "@/src/constants/AppConstants";
-import { getExpenses, createExpenses } from "@/src/clientService/expenseService";
+import { getExpenses, createExpenses } from "@/src/service/expenseService";
 import { formattedDate } from "@/src/helper/dateTimeHelper";
 import { Button } from "@/src/components/ui/button";
 import AddExpenseDrawer from "@/src/components/Expense/AddDrawer";
@@ -37,7 +37,6 @@ export default function Expenses() {
   }
 
   const onFinish = (e: Expense) => {
-    console.log("making a call...",e);
     createExpenses(e)
       .then(res => {
         setDrawer(false);
