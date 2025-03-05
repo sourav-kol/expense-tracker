@@ -12,7 +12,7 @@ export const sendEmail = async (subject: string, body: string) => {
             from: `Mailgun Sandbox <${process.env.SEND_EMAIL_FROM}>`,
             to: [`SOURAV HARISHCHANDRA KOLAMBKAR <${process.env.EMAIL_TO}>`],
             subject: subject,
-            text: body
+            html: body
         });
 
         console.log("email sent  ",data);
