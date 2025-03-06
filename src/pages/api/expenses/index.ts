@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { mongoInitialize } from '@/src/database/mongodb';
+import { mongoInitialize } from '@/src/mongo-database/mongodb';
 import { ExpenseModel } from '@/src/model/expense';
 import { v4 } from 'uuid';
 import { Expense, Paged, Pagination } from "@/src/types";
