@@ -1,7 +1,7 @@
 import FormData from "form-data";
 import Mailgun from "mailgun.js";
 
-export const sendEmail = async (subject: string, body: string) => {
+export const sendEmail = async (email:string, subject: string, body: string) => {
     const mailgun = new Mailgun(FormData);
     const mg = mailgun.client({
         username: "api",
@@ -9,7 +9,7 @@ export const sendEmail = async (subject: string, body: string) => {
     });
     try {
         const data = await mg.messages.create(process.env.SANDBOX_URL || "", {
-            from: `Mailgun Sandbox <${process.env.SEND_EMAIL_FROM}>`,
+            from: `Mailgun Sandbox <${email ?? process.env.SEND_EMAIL_FROM}>`,
             to: [`SOURAV HARISHCHANDRA KOLAMBKAR <${process.env.EMAIL_TO}>`],
             subject: subject,
             html: body

@@ -52,3 +52,7 @@ export type DashBoardFilter = {
     startDate: Date,
     endDate: Date
 }
+
+export type SignIn = {
+    email: string
+}

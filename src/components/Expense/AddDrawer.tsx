@@ -14,7 +14,7 @@ import {
     FormMessage,
 } from "@/src/components/ui/form";
 import { Select, SelectItem, SelectValue, SelectTrigger } from "@/src/components/ui/select"
-import { Input } from "@/src/components/ui/input"
+import { Input } from "@/src/components/ui/input";
 import { SelectContent } from "@radix-ui/react-select"
 
 import { zodResolver } from "@hookform/resolvers/zod";
