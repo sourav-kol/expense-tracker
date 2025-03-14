@@ -48,7 +48,7 @@ export default async function handler(
                 const templateBody = emailTemplate.monthlyExpense.join("");
                 // const body = replaceMergeFields(templateBody, replacements);
 
-                await sendEmail(subject, templateBody);
+                // await sendEmail(subject, templateBody);
                 res.status(200).json("Email sent successfully");
                 break;
         }

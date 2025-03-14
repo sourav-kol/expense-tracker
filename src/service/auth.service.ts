@@ -7,3 +7,10 @@ export const signIn = async (data: SignIn): Promise<string> => {
             return res.data
         });
 }
+
+export const ValidateToken = async (token: string): Promise<string> => {
+    return api.get(`/api/auth/validate?token=${token}`)
+        .then((res) => {
+            return res.data
+        });
+}

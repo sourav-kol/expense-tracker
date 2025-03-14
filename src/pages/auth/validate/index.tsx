@@ -4,25 +4,23 @@ import { Button } from '@/src/components/ui/button';
 import AppLayout from '@/src/layout/commonLayout';
 import { Card } from '@/src/components/ui/card';
 import AuthLayout from '@/src/components/auth/layout';
+import { ValidateToken } from '@/src/service/auth.service';
 
 const MagicLinkValidation = () => {
     const router = useRouter();
     const [isValidating, setIsValidating] = useState(false);
     const [isValid, setIsValid] = useState(true);
-    const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
         const { token } = router.query;
         if (token) {
-            // Simulate API call to validate the token
-            // setTimeout(() => {
-            //     if (token === 'valid-token') {
-            //         setIsValid(true);
-            //     } else {
-            //         setErrorMessage('Invalid or expired magic link.');
-            //     }
-            //     setIsValidating(false);
-            // }, 2000);
+            ValidateToken(token as string).then((res: string) => {
+                setIsValid(true);
+                setIsValidating(false);
+                localStorage.setItem('token', token as string);
+            }).catch((err: any) => {
+                setIsValid(false);
+            });
         }
     }, [router.query]);
 
