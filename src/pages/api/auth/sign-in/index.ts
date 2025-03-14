@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import jwt from 'jsonwebtoken';
-import { sendEmail } from "@/src/service/emailService";
+import { sendEmail } from "@/src/service/email.service";
 import emailTemplate from "@/src/emailTemplates/index.json";
 import { replaceMergeFields } from '@/src/helper/stringHelper';
 

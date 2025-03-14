@@ -1,5 +1,5 @@
 import { Expense, Paged, Pagination } from '@/src/types';
-import { api } from './apiService';
+import { api } from './api.service';
 
 export const getExpenses = async (pagination:Pagination): Promise<Paged<Expense>> => { //todo: fix return type
     return api.get("/api/expenses"+`?page=${pagination.page}&pageSize=${pagination.pageSize}`)

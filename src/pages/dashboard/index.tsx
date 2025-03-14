@@ -1,7 +1,7 @@
 import AppLayout from "@/src/layout/commonLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/src/components/ui/card";
 import { useEffect, useState } from "react";
-import { getDashboardDetails } from "@/src/service/dashboardService";
+import { getDashboardDetails } from "@/src/service/dashboard.service";
 import { DashBoard, DashBoardFilter } from "@/src/types";
 import { formattedDate } from "@/src/helper/dateTimeHelper";
 

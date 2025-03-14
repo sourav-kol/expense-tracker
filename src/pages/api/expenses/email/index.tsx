@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { sendEmail } from "@/src/service/emailService";
+import { sendEmail } from "@/src/service/email.service";
 // import { mongoInitialize } from '@/src/database/mongodb';
 // import { ExpenseModel } from '@/src/model/expense';
 // import { Expense, Paged } from "@/src/types";

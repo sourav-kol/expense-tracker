@@ -1,5 +1,5 @@
 import { DashBoard, DashBoardFilter } from '@/src/types';
-import { api } from './apiService';
+import { api } from './api.service';
 
 export const getDashboardDetails = async (filter: DashBoardFilter): Promise<DashBoard> => {
     // axios.post("/api/expenses/email", {});

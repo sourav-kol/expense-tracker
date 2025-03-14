@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import AppLayout from "@/src/layout/commonLayout";
 import { Expense, Paged, Pagination } from "@/src/types";
 import { DefaultPaginationValue, DefaultCategory } from "@/src/constants/AppConstants";
-import { getExpenses, createExpenses } from "@/src/service/expenseService";
+import { getExpenses, createExpenses } from "@/src/service/expense.service";
 import { formattedDate } from "@/src/helper/dateTimeHelper";
 import { Button } from "@/src/components/ui/button";
 import AddExpenseDrawer from "@/src/components/Expense/AddDrawer";
