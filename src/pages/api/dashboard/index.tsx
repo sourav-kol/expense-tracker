@@ -8,6 +8,7 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse<DashBoard | string> //todo: fix return type
 ) {
+    // return res.status(401).json("Unauthorized");
     try {
         await mongoInitialize();
         switch (req.method) {

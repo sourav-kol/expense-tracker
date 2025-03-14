@@ -1,8 +1,8 @@
 import { SignIn } from '@/src/types';
-import axios from 'axios';
+import { api } from './apiService';
 
 export const signIn = async (data: SignIn): Promise<string> => {
-    return axios.post("/api/auth/sign-in", data)
+    return api.post("/api/auth/sign-in", data)
         .then((res) => {
             return res.data
         });

@@ -1,3 +1,4 @@
+//todo: move to helper
 import FormData from "form-data";
 import Mailgun from "mailgun.js";
 
