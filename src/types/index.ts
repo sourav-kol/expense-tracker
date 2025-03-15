@@ -54,5 +54,5 @@ export type DashBoardFilter = {
 }
 
 export type SignIn = {
-    email: string
+    code: string
 }

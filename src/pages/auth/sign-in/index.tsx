@@ -21,8 +21,8 @@ interface SignInProps {
 }
 
 const formSchema = z.object({
-    email: z.string().min(5, {
-        message: "Email cannot be empty",
+    code: z.string().min(3, {
+        message: "code cannot be empty",
     })
 });
 import AppLayout from "@/src/layout/commonLayout";
@@ -36,7 +36,7 @@ export default function SignInPage() {
     const onFinish = (data: SignIn) => {
         //make api call
         signIn(data).then((res: string) => {
-            console.log(res);
+            localStorage.setItem('token', res);
         }).catch((err: any) => {
             console.log(err);
         });
@@ -68,12 +68,12 @@ export default function SignInPage() {
                 <Form {...form}>
                     <FormField
                         control={form.control}
-                        name="email"
+                        name="code"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Email</FormLabel>
+                                <FormLabel>Enter PIN</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="Enter your email" {...field} />
+                                    <Input placeholder="Enter your pin" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>

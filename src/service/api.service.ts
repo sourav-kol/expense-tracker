@@ -8,7 +8,7 @@ api.interceptors.response.use(
     (error) => {
         if (error.response.status === 401) {
             // redirect to login page
-            Router.push("auth/sign-in");
+            Router.replace("auth/sign-in");
         }
         return error;
     }

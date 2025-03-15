@@ -1,39 +1,25 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
-import jwt from 'jsonwebtoken';
-import { sendEmail } from "@/src/service/email.service";
-import emailTemplate from "@/src/emailTemplates/index.json";
-import { replaceMergeFields } from '@/src/helper/stringHelper';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import Jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<string>) {
     if (req.method === 'POST') {
-        const { email } = req.body;
-        
-        if (!email) {
-            res.status(400).json('Email is required');
+        const { code } = req.body;
+
+        if (!code) {
+            res.status(401).json('Code is required');
             return;
         } else {
-            //generate token
-            //generate url
-            //send url via mail
-            const token = jwt.sign({ email }, process.env.JWT_SECRET as string, { expiresIn: '20m' });
+            let isValidCode: boolean = false;
+            var decodedHash: string = atob(process.env.CODE as string);
 
-            // Read content from file
-            if (token) {
-                const replacements = {
-                    magicLink: process.env.APP_URL + "/auth/validate?token=" + token,
-                    year: new Date().getFullYear().toString(),
-                    name: "User - 01"
-                };
+            isValidCode = await bcrypt.compare(code, decodedHash)
 
-                const subject = "Spend Track - Login";
-                const templateBody = emailTemplate.magicLink.join("");
-                const body = replaceMergeFields(templateBody, replacements);
-
-                // await sendEmail(email, subject, body);
-
-                res.status(200).json(body);
+            if (isValidCode) {
+                var token = Jwt.sign({ code: process.env.CODE }, process.env.JWT_SECRET as string, { expiresIn: '20m' });
+                return res.status(200).json(token);
             } else {
-                res.status(500).json('Token not generated');
+                return res.status(401).json('Invalid code');
             }
         }
     }
