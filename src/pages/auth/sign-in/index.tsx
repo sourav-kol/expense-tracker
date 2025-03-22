@@ -15,6 +15,7 @@ import { SignIn } from "@/src/types";
 import { Button } from "@/src/components/ui/button";
 import { signIn } from "@/src/service/auth.service";
 import AuthLayout from '@/src/components/auth/layout';
+import { useRouter } from 'next/router';
 
 interface SignInProps {
 
@@ -28,15 +29,23 @@ const formSchema = z.object({
 import AppLayout from "@/src/layout/commonLayout";
 
 export default function SignInPage() {
+    const router = useRouter();
+
     const form = useForm<SignIn>({
         resolver: zodResolver(formSchema)
     });
     const [submitDisabled, setSubmitDisabled] = useState<boolean>(false);
-
     const onFinish = (data: SignIn) => {
         //make api call
         signIn(data).then((res: string) => {
-            localStorage.setItem('token', res);
+            if (res) {
+                localStorage.setItem('token', res);
+                router.push('/dashboard');
+            }else{
+                router.push('/auth/sign-in');
+                setSubmitDisabled(false);
+                //todo: show error message in toaster
+            }
         }).catch((err: any) => {
             console.log(err);
         });

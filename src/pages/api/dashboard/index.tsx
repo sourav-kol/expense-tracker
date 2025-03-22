@@ -2,9 +2,10 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { mongoInitialize } from '@/src/mongo-database/mongodb';
 import { ExpenseModel } from '@/src/model/expense';
 import { DashBoard } from "@/src/types";
+import { withAuth } from '@/src/helper/AuthMiddleware';
 
 //expense controller
-export default async function handler(
+const handler = async function handler(
     req: NextApiRequest,
     res: NextApiResponse<DashBoard | string> //todo: fix return type
 ) {
@@ -47,3 +48,5 @@ export default async function handler(
         throw err;
     }
 }
+
+export default withAuth(handler);

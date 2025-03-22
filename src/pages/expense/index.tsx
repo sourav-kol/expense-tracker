@@ -65,6 +65,9 @@ export default function Expenses() {
 
   const getExpenseData = (filter: Pagination) => {
     getExpenses(filter).then((res) => {
+      if (!res?.data) {
+        return;
+      }
       res.data = res.data.map(item => (
         {
           ...item,
