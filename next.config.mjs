@@ -29,11 +29,11 @@ const nextConfig = {
     // sassOptions: {
     //     fiber: false,
     // },
-    modularizeImports: {
-        antd4: {
-            transform: 'antd4/lib/{{kebabCase member}}',
-        }
-    }
+    // modularizeImports: {
+    //     antd4: {
+    //         transform: 'antd4/lib/{{kebabCase member}}',
+    //     }
+    // }
 };
 
 export default nextConfig;

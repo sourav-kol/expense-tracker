@@ -45,7 +45,7 @@ export default function SignInPage() {
         setSubmitDisabled(true);
         onFinish(data);
     };
-    const onError: SubmitErrorHandler<SignIn> = (errors) => {
+    const onError: SubmitErrorHandler<SignIn> = (error) => {
         setSubmitDisabled(false);
     };
 
