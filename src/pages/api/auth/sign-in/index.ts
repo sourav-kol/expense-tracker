@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import Jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<string>) {
     if (req.method === 'POST') {
@@ -11,9 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                 return;
             } else {
                 let isValidCode: boolean = false;
-                console.log("code: ", process.env.CODE);
                 var decodedHash: string = atob(process.env.CODE as string);
-                console.log("decoded: ", decodedHash);
 
                 isValidCode = await bcrypt.compare(code, decodedHash)
 
