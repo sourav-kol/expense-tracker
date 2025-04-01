@@ -57,7 +57,7 @@ export default function Dashboard() {
         </Card>
         <Card className="w-full md:w-1/3 bg-crimson text-white">
           <CardHeader>
-            <CardTitle className="font-bold">Billing Expenses</CardTitle>
+            <CardTitle className="font-bold">Billing Expense</CardTitle>
             <p className="text-xs">{billingDateRange && `${formattedDate(billingDateRange.billingStartDate.toString())} - ${formattedDate(billingDateRange.billinEndDate.toString())}`}</p>
           </CardHeader>
           <CardContent>
