@@ -2,26 +2,44 @@ import AppLayout from "@/src/layout/commonLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/src/components/ui/card";
 import { useEffect, useState } from "react";
 import { getDashboardDetails } from "@/src/service/dashboard.service";
-import { DashBoard, DashBoardFilter } from "@/src/types";
+import { DashBoard, DashBoardFilter } from "@/types/dashboard";
 import { formattedDate } from "@/src/helper/dateTimeHelper";
 
 export default function Dashboard() {
 
   const [dashBoardDetails, setDashBoardDetails] = useState<DashBoard>();
-  const [dateRange, setDateRange] = useState<{ startDate: Date, endDate: Date }>(); 
+  const [billingExpense, setBillingExpense] = useState<DashBoard>();
+
+  const [dateRange, setDateRange] = useState<{ startDate: Date, endDate: Date }>();
+  const [billingDateRange, setBillingDateRange] = useState<{ billingStartDate: Date, billinEndDate: Date }>();
+
   useEffect(() => {
     const startOfMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
     const endOfMonth = new Date(new Date().getFullYear(), new Date().getMonth() + 1);
 
+    const startOfBillingMonth = new Date(new Date().getFullYear(), (new Date().getMonth() - 1), 12);
+    const endOfBillingMonth = new Date(new Date().getFullYear(), (new Date().getMonth()), 12);
+
     setDateRange({ startDate: startOfMonth, endDate: endOfMonth });
+    setBillingDateRange({ billingStartDate: startOfBillingMonth, billinEndDate: endOfBillingMonth });
 
     var filter: DashBoardFilter = {
       startDate: startOfMonth,
       endDate: endOfMonth
-    }
+    };
+
+    var filterBillingExpense: DashBoardFilter = {
+      startDate: startOfBillingMonth,
+      endDate: endOfBillingMonth
+    };
     getDashboardDetails(filter)
       .then(data => {
-        setDashBoardDetails({...data, totalExpense: "N/A"});
+        setDashBoardDetails({ ...data, totalExpense: "N/A" });
+      })
+
+    getDashboardDetails(filterBillingExpense)
+      .then(data => {
+        setBillingExpense({ ...data, totalExpense: "N/A" });
       })
   }, []);
 
@@ -30,19 +48,20 @@ export default function Dashboard() {
       <div className="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
         <Card className="w-full md:w-1/3 bg-crimson text-white">
           <CardHeader>
-            <CardTitle className="font-bold">Total Expenses</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl">{dashBoardDetails?.totalExpense}</p>
-          </CardContent>
-        </Card>
-        <Card className="w-full md:w-1/3 bg-crimson text-white">
-          <CardHeader>
             <CardTitle className="font-bold">Expense This Month</CardTitle>
             <p className="text-xs">{dateRange && `${formattedDate(dateRange.startDate.toString())} - ${formattedDate(dateRange.endDate.toString())}`}</p>
           </CardHeader>
           <CardContent>
             <p className="text-2xl">₹ {dashBoardDetails?.currentMonthExpense}</p>
+          </CardContent>
+        </Card>
+        <Card className="w-full md:w-1/3 bg-crimson text-white">
+          <CardHeader>
+            <CardTitle className="font-bold">Billing Expenses</CardTitle>
+            <p className="text-xs">{billingDateRange && `${formattedDate(billingDateRange.billingStartDate.toString())} - ${formattedDate(billingDateRange.billinEndDate.toString())}`}</p>
+          </CardHeader>
+          <CardContent>
+            <p className="text-2xl">₹ {billingExpense?.currentMonthExpense}</p>
           </CardContent>
         </Card>
       </div>
