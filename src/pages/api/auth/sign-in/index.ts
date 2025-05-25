@@ -16,7 +16,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                 isValidCode = await bcrypt.compare(code, decodedHash)
 
                 if (isValidCode) {
-                    var token = Jwt.sign({ code: process.env.CODE }, process.env.JWT_SECRET as string, { expiresIn: '20m' });
+                    var token = Jwt.sign({ code: process.env.CODE }, process.env.JWT_SECRET as string, { expiresIn: '30m' });
                     return res.status(200).json(token);
                 } else {
                     return res.status(401).json('Invalid code');
