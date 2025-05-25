@@ -45,8 +45,13 @@ export const DonutChart = (prop: Props) => {
       legend: {
         display: true,
         position: 'top' as const,
+        align: 'center' as const,
         labels: {
-          color: '#ffffff'
+          color: '#ffffff',
+          font: {
+            size: 14,
+            weight: 'bold'
+          },
         }
       },
       tooltip: {

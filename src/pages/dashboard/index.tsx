@@ -6,7 +6,6 @@ import { ChartData, DashBoard, DashBoardFilter } from "@/src/types";
 import { formattedDate } from "@/src/helper/dateTimeHelper";
 
 import { DonutChart } from "@/src/components/dashboard/MonthlyExpenseChart";
-import { set } from "lodash";
 
 export default function Dashboard() {
 
