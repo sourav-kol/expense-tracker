@@ -56,3 +56,9 @@ export type DashBoardFilter = {
 export type SignIn = {
     code: string
 }
+
+export type ChartData = {
+    part: string,
+    category: string,
+    totalAmount?: number
+}

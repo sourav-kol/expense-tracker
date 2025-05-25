@@ -1,9 +1,12 @@
 import AppLayout from "@/src/layout/commonLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/src/components/ui/card";
 import { useEffect, useState } from "react";
-import { getDashboardDetails } from "@/src/service/dashboard.service";
-import { DashBoard, DashBoardFilter } from "@/src/types";
+import { getDashboardChartData, getDashboardDetails } from "@/src/service/dashboard.service";
+import { ChartData, DashBoard, DashBoardFilter } from "@/src/types";
 import { formattedDate } from "@/src/helper/dateTimeHelper";
+
+import { DonutChart } from "@/src/components/dashboard/MonthlyExpenseChart";
+import { set } from "lodash";
 
 export default function Dashboard() {
 
@@ -12,6 +15,8 @@ export default function Dashboard() {
 
   const [dateRange, setDateRange] = useState<{ startDate: Date, endDate: Date }>();
   const [billingDateRange, setBillingDateRange] = useState<{ billingStartDate: Date, billinEndDate: Date }>();
+
+  const [chartData, setChartData] = useState<ChartData[]>([]);
 
   useEffect(() => {
     const startOfMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
@@ -40,7 +45,12 @@ export default function Dashboard() {
     getDashboardDetails(filterBillingExpense)
       .then(data => {
         setBillingExpense({ ...data, totalExpense: "N/A" });
-      })
+      });
+
+    getDashboardChartData(filter)
+      .then(data => {
+        setChartData(data);
+      });
   }, []);
 
   return (
@@ -66,6 +76,9 @@ export default function Dashboard() {
         </Card>
       </div>
       {/* charts here... */}
+      <Card className="w-full md:w-1/3 bg-crimson text-white">
+        <DonutChart chartData={chartData} />
+      </Card>
     </AppLayout>
   );
 }
