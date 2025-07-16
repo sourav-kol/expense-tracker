@@ -1,4 +1,4 @@
-import { ChartData, DashBoard, DashBoardFilter } from '@/src/types';
+import { DonutChartData, DashBoard, DashBoardFilter, BarChartData } from '@/src/types';
 import { api } from './api.service';
 
 export const getDashboardDetails = async (filter: DashBoardFilter): Promise<DashBoard> => {
@@ -9,8 +9,15 @@ export const getDashboardDetails = async (filter: DashBoardFilter): Promise<Dash
 }
 
 
-export const getDashboardChartData = async (filter: DashBoardFilter): Promise<ChartData[]> => {
+export const getDashboardChartData = async (filter: DashBoardFilter): Promise<DonutChartData[]> => {
     return api.post("/api/dashboard/charts", filter)
+        .then((res) => {
+            return res.data
+        });
+}
+
+export const getDashboardBarChartData = async (filter: DashBoardFilter): Promise<BarChartData[]> => {
+    return api.post("/api/dashboard/barchart", filter)
         .then((res) => {
             return res.data
         });

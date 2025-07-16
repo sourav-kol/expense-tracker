@@ -4,13 +4,13 @@ import React, { useEffect, useState } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { DefaultCategory } from '@/src/constants/AppConstants';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { ChartData } from '@/src/types';
+import { DonutChartData } from '@/src/types';
 import { generateDistinctColors } from '@/src/helper/generateColors';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 type Props = {
-  chartData: ChartData[];
+  chartData: DonutChartData[];
 }
 
 export const DonutChart = (prop: Props) => {
@@ -67,7 +67,8 @@ export const DonutChart = (prop: Props) => {
       },
     }
   };
-
+  
+  //@ts-ignore
   return <Doughnut data={data} options={options} />;
 };
 

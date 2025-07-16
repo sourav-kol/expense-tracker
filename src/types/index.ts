@@ -57,8 +57,13 @@ export type SignIn = {
     code: string
 }
 
-export type ChartData = {
+export type DonutChartData = {
     part: string,
     category: string,
+    totalAmount?: number
+}
+
+export type BarChartData = {
+    month: string,
     totalAmount?: number
 }

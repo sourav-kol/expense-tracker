@@ -1,13 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { mongoInitialize } from '@/src/mongo-database/mongodb';
 import { ExpenseModel } from '@/src/model/expense';
-import { DonutChartData } from "@/src/types";
+import { BarChartData } from "@/src/types";
 import { withAuth } from '@/src/helper/AuthMiddleware';
 
 //expense controller
 const handler = async function handler(
     req: NextApiRequest,
-    res: NextApiResponse<DonutChartData[] | string>
+    res: NextApiResponse<BarChartData[] | string>
 ) {
     try {
         await mongoInitialize();
@@ -30,24 +30,23 @@ const handler = async function handler(
                     },
                     {
                         $group: {
-                            _id: "$category",
-                            totalAmount: { $sum: "$amount" }
-                        }
+                            _id: { $dateToString: { format: "%Y-%m", date: "$createdDate" } },
+                            totalAmount: { $sum: "$amount" },
+                        },
                     },
                     {
                         $project: {
                             _id: 0,
-                            category: "$_id",
+                            month: "$_id",
                             totalAmount: 1
                         }
                     }
                 ]);
 
                 let sum = response.reduce((acc, curr) => acc + curr.totalAmount, 0);
-                var result: DonutChartData[] = response.map((item) => {
+                var result: BarChartData[] = response.map((item) => {
                     return {
-                        part: ((item.totalAmount / sum) * 100).toString(),
-                        category: item.category,
+                        month: item.month,
                         totalAmount: item.totalAmount
                     }
                 });

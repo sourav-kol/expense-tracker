@@ -11,10 +11,10 @@ export const Nav = () => {
                 Key: "/expense",
                 Label: "Expense"
             },
-            {
-                Key: "/report",
-                Label: "Report"
-            },
+            // {
+            //     Key: "/report",
+            //     Label: "Report"
+            // },
         ]
     } as NavItems
 }
@@ -30,3 +30,5 @@ export const DefaultCategory:Record<string, string> = {
     "3": 'Bills',
     "4": 'Entertainment',
 }
+
+export const Months: string[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];

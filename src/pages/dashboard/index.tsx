@@ -1,11 +1,12 @@
 import AppLayout from "@/src/layout/commonLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/src/components/ui/card";
 import { useEffect, useState } from "react";
-import { getDashboardChartData, getDashboardDetails } from "@/src/service/dashboard.service";
-import { ChartData, DashBoard, DashBoardFilter } from "@/src/types";
+import { getDashboardChartData, getDashboardDetails, getDashboardBarChartData } from "@/src/service/dashboard.service";
+import { DonutChartData, BarChartData, DashBoard, DashBoardFilter } from "@/src/types";
 import { formattedDate } from "@/src/helper/dateTimeHelper";
 
 import { DonutChart } from "@/src/components/dashboard/MonthlyExpenseChart";
+import { BarChart } from "@/src/components/dashboard/BarChart";
 
 export default function Dashboard() {
 
@@ -15,8 +16,11 @@ export default function Dashboard() {
   const [dateRange, setDateRange] = useState<{ startDate: Date, endDate: Date }>();
   const [billingDateRange, setBillingDateRange] = useState<{ billingStartDate: Date, billinEndDate: Date }>();
 
-  const [monthlyChartData, setMonthlyChartData] = useState<ChartData[]>([]);
-  const [billlingChartData, setBillingChartData] = useState<ChartData[]>([]);
+  const [monthlyChartData, setMonthlyChartData] = useState<DonutChartData[]>([]);
+  const [billlingChartData, setBillingChartData] = useState<DonutChartData[]>([]);
+
+  const [billlingBarChartData, setBillingBarChartData] = useState<BarChartData[]>([]);
+
 
   useEffect(() => {
     const startOfMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
@@ -24,6 +28,9 @@ export default function Dashboard() {
 
     const startOfBillingMonth = new Date(new Date().getFullYear(), (new Date().getMonth() - 1), 12);
     const endOfBillingMonth = new Date(new Date().getFullYear(), (new Date().getMonth()), 12);
+
+    const timeseriesStartMonth = new Date(new Date().getFullYear(), (new Date().getMonth() - 3), 12);
+    const timeseriesEndMonth = new Date(new Date().getFullYear(), (new Date().getMonth()), 12);
 
     setDateRange({ startDate: startOfMonth, endDate: endOfMonth });
     setBillingDateRange({ billingStartDate: startOfBillingMonth, billinEndDate: endOfBillingMonth });
@@ -37,6 +44,12 @@ export default function Dashboard() {
       startDate: startOfBillingMonth,
       endDate: endOfBillingMonth
     };
+
+    var filterTimeseries: DashBoardFilter = {
+      startDate: timeseriesStartMonth,
+      endDate: timeseriesEndMonth
+    };
+
     getDashboardDetails(filter)
       .then(data => {
         setDashBoardDetails({ ...data, totalExpense: "N/A" });
@@ -56,6 +69,12 @@ export default function Dashboard() {
       .then(data => {
         setBillingChartData(data);
       });
+
+    getDashboardBarChartData(filterTimeseries)
+      .then(data => {
+        setBillingBarChartData(data);
+      });
+
   }, []);
 
   return (
@@ -92,6 +111,19 @@ export default function Dashboard() {
             <hr className="my-4 border-white/30" />
             <CardContent className="flex justify-center items-center">
               <DonutChart chartData={billlingChartData} />
+            </CardContent>
+          </CardContent>
+        </Card>
+
+        {/* bar chart */}
+        <Card className="w-11/12 md:w-5/12 max-w-md bg-crimson text-white">
+          <CardHeader>
+            <CardTitle className="font-bold">Billing Expense Timeseries</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <hr className="my-4 border-white/30" />
+            <CardContent className="flex justify-center items-center">
+              <BarChart chartData={billlingBarChartData} />
             </CardContent>
           </CardContent>
         </Card>
