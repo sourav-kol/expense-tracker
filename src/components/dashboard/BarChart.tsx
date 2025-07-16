@@ -24,7 +24,7 @@ export const BarChart = (prop: Props) => {
   ChartJS.register(BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend);
 
   const data = {
-    labels: prop.chartData.map(item => Months[parseInt(item.month.split('-')[1])]),
+    labels: prop.chartData.map(item => Months[parseInt(item.month.split('-')[1])-1]),
     datasets: [
       {
         label: 'Expenses',
