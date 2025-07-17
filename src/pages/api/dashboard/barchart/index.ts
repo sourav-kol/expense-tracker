@@ -40,6 +40,9 @@ const handler = async function handler(
                             month: "$_id",
                             totalAmount: 1
                         }
+                    },
+                    {
+                        $sort: { month: 1 } // Ascending order by YYYY-MM
                     }
                 ]);
 
