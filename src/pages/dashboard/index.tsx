@@ -26,8 +26,16 @@ export default function Dashboard() {
     const startOfMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
     const endOfMonth = new Date(new Date().getFullYear(), new Date().getMonth() + 1);
 
-    const startOfBillingMonth = new Date(new Date().getFullYear(), (new Date().getMonth() - 1), 12);
-    const endOfBillingMonth = new Date(new Date().getFullYear(), (new Date().getMonth()), 12);
+    //init
+    let startOfBillingMonth = new Date(new Date().getFullYear(), (new Date().getMonth() - 1), 12);
+    let endOfBillingMonth = new Date(new Date().getFullYear(), (new Date().getMonth()), 12);
+
+    console.log("here", new Date().getDate())
+    if (new Date().getDate() >= new Date(new Date().getFullYear(), (new Date().getMonth()), 12).getDate()) 
+    {
+      startOfBillingMonth = new Date(new Date().getFullYear(), (new Date().getMonth()), 12);
+      endOfBillingMonth = new Date(new Date().getFullYear(), (new Date().getMonth() + 1), 12);
+    }
 
     const timeseriesStartMonth = new Date(new Date().getFullYear(), (new Date().getMonth() - 3), 12);
     const timeseriesEndMonth = new Date(new Date().getFullYear(), (new Date().getMonth()), 12);
