@@ -30,7 +30,6 @@ export default function Dashboard() {
     let startOfBillingMonth = new Date(new Date().getFullYear(), (new Date().getMonth() - 1), 12);
     let endOfBillingMonth = new Date(new Date().getFullYear(), (new Date().getMonth()), 12);
 
-    console.log("here", new Date().getDate())
     if (new Date().getDate() >= new Date(new Date().getFullYear(), (new Date().getMonth()), 12).getDate()) 
     {
       startOfBillingMonth = new Date(new Date().getFullYear(), (new Date().getMonth()), 12);
