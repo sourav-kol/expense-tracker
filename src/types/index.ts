@@ -67,3 +67,11 @@ export type BarChartData = {
     month: string,
     totalAmount?: number
 }
+
+export type WeeklyExpenseSummary = {
+  year: number;
+  weekNumber: number;
+  weekStartDate: string | Date;
+  totalAmount: number;
+  expenses: Expense[];
+}
