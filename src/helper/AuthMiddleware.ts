@@ -11,7 +11,13 @@ export const withAuth = (handler: NextApiHandler) => {
         } else {
             //validate token
             const decoded = jwt.verify(token as string, process.env.JWT_SECRET as string) as JwtPayload;
-            const { code } = decoded;
+            const { code, exp } = decoded;
+
+            const currentTime = Math.floor(Date.now() / 1000); // Convert milliseconds to seconds
+
+            if (exp && (exp < currentTime)) {
+                return res.status(403).json({ message: "Unauthorized: token not matched" });
+            }
 
             if (process.env.CODE == code) {
                 return handler(req, res);

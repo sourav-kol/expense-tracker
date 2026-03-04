@@ -12,7 +12,7 @@ function NavigationItems(prop: Props) {
     const { Item } = prop;
     const router = useRouter();
 
-    const isActive: boolean = router.pathname.toLocaleLowerCase().includes(Item.Key);
+    const isActive: boolean = router.pathname.toLocaleLowerCase() == Item.Key;
     return <>
         <Link href={Item.Key} key={Item.Key} className={`${isActive ? "text-crimson hover:text-crimson" : "text-white hover:text-crimson"}`}>{Item.Label}</Link>
     </>;

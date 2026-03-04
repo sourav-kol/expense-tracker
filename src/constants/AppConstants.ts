@@ -11,10 +11,10 @@ export const Nav = () => {
                 Key: "/expense",
                 Label: "Expense"
             },
-            // {
-            //     Key: "/report",
-            //     Label: "Report"
-            // },
+            {
+                Key: "/expense/grouped",
+                Label: "Weekly Expense"
+            },
         ]
     } as NavItems
 }
